@@ -3,17 +3,17 @@ layout: default
 ---
 
 <div class="text-center">
-    <h1 class="text-capitalize">{{ page.title }}</h1>
-    <h4>{{ page.date | date: "%B %-d, %Y" }}</h4>
-    <h5>{{page.author}}</h5>
+  <h1 class="text-capitalize">{{ page.title }}</h1>
+  <h4>{{ page.date | date: "%B %-d, %Y" }}</h4>
+  <h5>{{page.author}}</h5>
 </div>
 <article class="text-justify">
-    <!-- KaTeX -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-        integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous">
-        </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-        integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
-    {{ page.content }}
+  <!-- KaTeX -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+    integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous">
+    </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  {{ page.content }}
 </article>

@@ -5,63 +5,63 @@ permalink: /resume
 ---
 
 <div class="text-center">
-    <div id="canvas_div">
-        <button type="button" class="btn btn-primary btn-lg btn-block my-4"><a class="text-white"
-                href="{{ site.resume_link}}">Download</a></button>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.min.js"></script>
-    <script>
-        // If absolute URL from the remote server is provided, configure the CORS
-        // header on that server.
-        var url = 'https://raw.githubusercontent.com/adityamwagh/resume/master/ml_resume_aditya_wagh.pdf';
-        // Loaded via <script> tag, create shortcut to access PDF.js exports.
-        var pdfjsLib = window['pdfjs-dist/build/pdf'];
-        // The workerSrc property shall be specified.
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.worker.min.js';
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function (pdf) {
-            var __TOTAL_PAGES = pdf.numPages;
-            // Fetch the first page
-            var pageNumber = 1;
-            for (let i = 1; i <= __TOTAL_PAGES; i += 1) {
-                var id = 'the-canvas' + i;
-                $('#canvas_div').append("<canvas class='the-canvas border rounded shadow-lg mw-100' id='" + id +
-                    "'></canvas>");
-                var canvas = document.getElementById(id);
-                //var pageNumber = 1;
-                renderPage(canvas, pdf, pageNumber++, function pageRenderingComplete() {
-                    if (pageNumber > pdf.numPages) {
-                        return;
-                    }
-                    // Continue rendering of the next page
-                    renderPage(canvas, pdf, pageNumber++, pageRenderingComplete);
-                });
-            }
+  <div id="canvas_div">
+    <button type="button" class="btn btn-primary btn-lg btn-block my-4"><a class="text-white"
+        href="{{ site.resume_link}}">Download</a></button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.min.js"></script>
+  <script>
+    // If absolute URL from the remote server is provided, configure the CORS
+    // header on that server.
+    var url = 'https://raw.githubusercontent.com/adityamwagh/resume/master/ml_resume_aditya_wagh.pdf';
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.worker.min.js';
+    var loadingTask = pdfjsLib.getDocument(url);
+    loadingTask.promise.then(function (pdf) {
+      var __TOTAL_PAGES = pdf.numPages;
+      // Fetch the first page
+      var pageNumber = 1;
+      for (let i = 1; i <= __TOTAL_PAGES; i += 1) {
+        var id = 'the-canvas' + i;
+        $('#canvas_div').append("<canvas class='the-canvas border rounded shadow-lg mw-100' id='" + id +
+          "'></canvas>");
+        var canvas = document.getElementById(id);
+        //var pageNumber = 1;
+        renderPage(canvas, pdf, pageNumber++, function pageRenderingComplete() {
+          if (pageNumber > pdf.numPages) {
+            return;
+          }
+          // Continue rendering of the next page
+          renderPage(canvas, pdf, pageNumber++, pageRenderingComplete);
         });
+      }
+    });
 
-        function renderPage(canvas, pdf, pageNumber, callback) {
-            pdf.getPage(pageNumber).then(function (page) {
-                var scale = 3.5;
-                var viewport = page.getViewport({
-                    scale: scale
-                });
-                var pageDisplayWidth = viewport.width;
-                var pageDisplayHeight = viewport.height;
-                //var pageDivHolder = document.createElement();
-                // Prepare canvas using PDF page dimensions
-                //var canvas = document.createElement(id);
-                var context = canvas.getContext('2d');
-                canvas.width = pageDisplayWidth;
-                canvas.height = pageDisplayHeight;
-                // pageDivHolder.appendChild(canvas);
-                // Render PDF page into canvas context
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                page.render(renderContext).promise.then(callback);
-            });
-        }
-    </script>
+    function renderPage(canvas, pdf, pageNumber, callback) {
+      pdf.getPage(pageNumber).then(function (page) {
+        var scale = 3.5;
+        var viewport = page.getViewport({
+          scale: scale
+        });
+        var pageDisplayWidth = viewport.width;
+        var pageDisplayHeight = viewport.height;
+        //var pageDivHolder = document.createElement();
+        // Prepare canvas using PDF page dimensions
+        //var canvas = document.createElement(id);
+        var context = canvas.getContext('2d');
+        canvas.width = pageDisplayWidth;
+        canvas.height = pageDisplayHeight;
+        // pageDivHolder.appendChild(canvas);
+        // Render PDF page into canvas context
+        var renderContext = {
+          canvasContext: context,
+          viewport: viewport
+        };
+        page.render(renderContext).promise.then(callback);
+      });
+    }
+  </script>
 </div>

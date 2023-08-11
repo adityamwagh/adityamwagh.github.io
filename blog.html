@@ -3,26 +3,26 @@ layout: default
 title: Blog
 ---
 <div class="mx-auto">
-    <h1 class="text-center">Aditya's Blog</h1>
-    <p>
-        Here are my carefully compiled views on some topics that I encountered so
-        far. Hopefully, you will find them helpful! You can also search my posts by
-        category <a href="{{ site.baseurl }}/categories">here</a>.
-    </p>
+  <h1 class="text-center">Aditya's Blog</h1>
+  <p>
+    Here are my carefully compiled views on some topics that I encountered so
+    far. Hopefully, you will find them helpful! You can also search my posts by
+    category <a href="{{ site.baseurl }}/categories">here</a>.
+  </p>
 
-    <table class="blog-list">
-        {%- for post in site.posts -%}
-        <tr>
-            <td>
-                <h5 class="text-nowrap">{{ post.date | date: "%b %-d, %Y" }}</h5>
-            </td>
-            <td class="text-left">
-                <h4 class="m-0"><a class="text-capitalize text-justify"
-                        href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-                </h4><br>
-                <p>{{ post.excerpt }}</p>
-            </td>
-        </tr>
-        {%- endfor -%}
-    </table>
+  <table class="blog-list">
+    {%- for post in site.posts -%}
+    <tr>
+      <td>
+        <h5 class="text-nowrap">{{ post.date | date: "%b %-d, %Y" }}</h5>
+      </td>
+      <td class="text-left">
+        <h4 class="m-0"><a class="text-capitalize text-justify" href="{{ post.url | prepend: site.baseurl }}">{{
+            post.title }}</a>
+        </h4><br>
+        <p>{{ post.excerpt }}</p>
+      </td>
+    </tr>
+    {%- endfor -%}
+  </table>
 </div>
