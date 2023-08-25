@@ -1,23 +1,25 @@
 // Basic Styling
 html {
-    font-family: $primary-font-family;
-    font-size: $primary-font-size;
-    letter-spacing: $primary-letter-spacing;
-    line-height: $primary-line-height
+    font-family: $font-family !important;
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    line-height: $line-height
 }
 
 body {
+    font-family: $font-family !important;
     transition: ease all 0.5s;
     overflow-y: scroll;
     overflow-x: hidden;
-    font-family: $primary-font-family;
-    font-size: $primary-font-size;
-    letter-spacing: $primary-letter-spacing;
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
     -webkit-text-size-adjust: 100%;
 }
 
 header {
-    background: inherit;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(25px);
+    transform: translateZ(0);
 }
 
 // Headers
@@ -30,7 +32,6 @@ h6 {
     margin-bottom: 1em !important;
     letter-spacing: -1px !important;
     margin-top: 1em !important;
-    font-family: $title-font-family !important;
     text-transform: capitalize;
     font-weight: 600;
 }
@@ -61,6 +62,10 @@ svg.svg-inline--fa path {
     fill: black;
 }
 
+a {
+    text-underline-offset: 25% !important;
+}
+
 // Content
 .content {
     max-width: $content-width;
@@ -72,12 +77,18 @@ svg.svg-inline--fa path {
     font-size: 1em;
 }
 
-.display-4 {
-    font-family: $secondary-font-family !important;
+// .display-4 {
+//     font-family: $font-family !important;
+// }
+
+img {
+    .rounded {
+        border-radius: .5rem !important;
+    }
 }
 
 .rounded {
-    border-radius: 0.5rem !important;
+    border-radius: 2rem !important;
 }
 
 /* Lists */
@@ -124,3 +135,17 @@ abbr[title] {
 .text-justify {
     text-align: justify !important;
 }
+
+@media (max-width: 767.98px) {
+    .vh-100-small {
+        height: 100vh;
+    }
+}
+
+/* Custom CSS for the "X" icon */
+.navbar-toggler.active .navbar-toggler-icon:before {
+    content: '×'; /* Unicode character for "X" */
+    font-size: 24px; /* Adjust the size as needed */
+    line-height: 1;
+  }
+  

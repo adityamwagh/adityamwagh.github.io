@@ -1,5 +1,10 @@
-<header class="sticky-top">
-
+<header class="fixed-top">
+  <script>
+    document.querySelector('.navbar-toggler').addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+    </script>
+    
   <!-- -Navbar -->
   <div class="container">
     <nav class="navbar navbar-expand-md navbar-light content mx-auto">
@@ -16,7 +21,7 @@
 
       <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav w-100 d-inline-flex text-lowercase">
+        <ul class="navbar-nav vh-100-small w-100 d-inline-flex text-capitalize">
           <!-- Home -->
           <li class="nav-item mx-auto">
             <a href="/" class="nav-link"><i class="fas fa-home"></i>&nbsp;home</a>
@@ -28,9 +33,9 @@
           </li>
 
           <!-- Projects -->
-          <li class="nav-item mx-auto">
+          <!-- <li class="nav-item mx-auto">
             <a href="/#projects" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;projects</a>
-          </li>
+          </li> -->
 
           <!-- Resume -->
           <li class="nav-item mx-auto">

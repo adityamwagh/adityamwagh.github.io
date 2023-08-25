@@ -1,27 +1,14 @@
 // Tables
-td {
+td, th {
     padding: 1em;
     text-align: justify;
 }
-
-tr {
-    border-top: 1px solid lightgrey;
-    border-radius: 1em;
-}
-
 
 /* Tables */
 table {
     margin-bottom: 1rem;
     width: 100%;
-    border: 1px solid #e5e5e5;
     width: 100%;
-}
-
-td,
-th {
-    padding: 0.75em 0.75em;
-    border: 1px solid #e5e5e5;
 }
 
 .rouge-table {

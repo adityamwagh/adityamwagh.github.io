@@ -5,14 +5,14 @@
   code: https://github.com/adityamwagh/convae-dimen-reduc
   image: https://github.com/adityamwagh/convae-dimen-reduc/raw/main/autoencoder_latent_space_reduced.png
 
-- title: Plane Fitting in 3D Point Cloud Data
-  description: Robust plane fitting in 3D point cloud data using RANSAC.
+- title: Plane Extraction from a 3D Point Cloud
+  description: Fast, Parallel implementation of the RANSAC algorithm to segment a plane in a point cloud.
   docs: https://adityamwagh.github.io/ransac-pcl
   code: https://github.com/adityamwagh/ransac-pcl
   image: https://github.com/adityamwagh/ransac-pcl/raw/main/plot.jpg
 
 - title: Post-Earthquake damage assesment using FCNs
-  description: A deep neural network model for visual damage assesment.
+  description: A convolutional neural network for multi-task visual damage assesment.
   docs: https://adityamwagh.github.io/damage-assessment
   code: https://github.com/adityamwagh/damage-assessment
   image: https://github.com/adityamwagh/damage-assessment/raw/main/damage.png
