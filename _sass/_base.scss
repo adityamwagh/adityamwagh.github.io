@@ -17,6 +17,7 @@ body {
 }
 
 header {
+    -webkit-backdrop-filter: blur(25px);
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(25px);
     transform: translateZ(0);
@@ -63,6 +64,10 @@ svg.svg-inline--fa path {
 }
 
 a {
+    text-underline-offset: 25% !important;
+}
+
+u {
     text-underline-offset: 25% !important;
 }
 
@@ -144,8 +149,9 @@ abbr[title] {
 
 /* Custom CSS for the "X" icon */
 .navbar-toggler.active .navbar-toggler-icon:before {
-    content: '×'; /* Unicode character for "X" */
-    font-size: 24px; /* Adjust the size as needed */
+    content: '×';
+    /* Unicode character for "X" */
+    font-size: 24px;
+    /* Adjust the size as needed */
     line-height: 1;
-  }
-  
+}
