@@ -12,7 +12,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     font-size: $font-size;
-    letter-spacing: $letter-spacing;
+    letter-spacing: $letter-spacing !important;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -35,10 +35,6 @@ h6 {
     margin-top: 1em !important;
     text-transform: capitalize;
     font-weight: 600;
-}
-
-a {
-    background-color: transparent;
 }
 
 b,
@@ -81,10 +77,6 @@ u {
     color: #e25555;
     font-size: 1em;
 }
-
-// .display-4 {
-//     font-family: $font-family !important;
-// }
 
 img {
     .rounded {
@@ -141,17 +133,9 @@ abbr[title] {
     text-align: justify !important;
 }
 
+
 @media (max-width: 767.98px) {
     .vh-100-small {
         height: 100vh;
     }
-}
-
-/* Custom CSS for the "X" icon */
-.navbar-toggler.active .navbar-toggler-icon:before {
-    content: '×';
-    /* Unicode character for "X" */
-    font-size: 24px;
-    /* Adjust the size as needed */
-    line-height: 1;
 }
