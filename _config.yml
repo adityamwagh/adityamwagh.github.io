@@ -51,3 +51,8 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+
+algolia:
+  application_id: OWPETZ9UYV
+  index_name: site_search
+  search_only_api_key: a2056bd20cce65e7c4a939b867d91040S
