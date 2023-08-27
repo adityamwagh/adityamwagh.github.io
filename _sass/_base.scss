@@ -1,18 +1,18 @@
 // Basic Styling
 html {
-    font-family: $font-family !important;
+    font-family: $font-family;
     font-size: $font-size;
     letter-spacing: $letter-spacing;
     line-height: $line-height
 }
 
 body {
-    font-family: $font-family !important;
+    font-family: $font-family;
     transition: ease all 0.5s;
     overflow-y: scroll;
     overflow-x: hidden;
     font-size: $font-size;
-    letter-spacing: $letter-spacing !important;
+    letter-spacing: $letter-spacing;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -59,11 +59,9 @@ svg.svg-inline--fa path {
     fill: black;
 }
 
-a {
-    text-underline-offset: 25% !important;
-}
-
+a,
 u {
+    text-decoration: underline;
     text-underline-offset: 25% !important;
 }
 
@@ -75,7 +73,7 @@ u {
 // Heart
 .heart {
     color: #e25555;
-    font-size: 1em;
+    font-size: 1.25em;
 }
 
 img {
@@ -85,7 +83,7 @@ img {
 }
 
 .rounded {
-    border-radius: 2rem !important;
+    border-radius: 1.25rem !important;
 }
 
 /* Lists */
@@ -130,9 +128,35 @@ abbr[title] {
 }
 
 .text-justify {
-    text-align: justify !important;
+    text-align: left !important;
 }
 
+/* Remove border from toggler */
+.navbar-toggler {
+    border: 0 !important;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+}
+
+/* Lines of the Toggler */
+.toggler-icon{
+    width: 32px;
+    height: 3px;
+    background-color: #777777;
+    display: block;
+    transition: all 0.2s;
+}
+
+/* Adds Space between the lines */
+.middle-bar{
+    margin: 7px auto;
+}
 
 @media (max-width: 767.98px) {
     .vh-100-small {
