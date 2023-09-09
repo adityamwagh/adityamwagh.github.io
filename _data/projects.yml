@@ -18,7 +18,7 @@
   image: https://github.com/adityamwagh/damage-assessment/raw/main/damage.png
 
 - title: Two-View geometry based pose estimation
-  description: Relative Pose estimation using OpenCV 
+  description: Relative Pose estimation using OpenCV
   docs: https://adityamwagh.github.io/pose-estimation
   code: https://github.com/adityamwagh/pose-estimation
   image: https://github.com/adityamwagh/pose-estimation/raw/main/AprilCalib_orgframe_00007.png

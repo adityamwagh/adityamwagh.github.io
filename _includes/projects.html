@@ -1,4 +1,4 @@
-<div class="animate__animated animate__fadeIn">
+<div>
   <h1 class="text-center" id="projects">Projects</h1>
   <p class="text-center">
     Below is a list of my notable projects. Feel free to have a look at whatever you find
@@ -7,11 +7,11 @@
   <div class="grid ">
     {% for project in site.data.projects %}
     <div class="g-col-12 g-col-md-6 text-center p-3 rounded shadow">
-      <img class="img rounded" src="{{project.image}}">
+      <img class="img-fluid rounded" src="{{project.image}}" alt="{{project.description}}">
       <h3 class="my-3 text-capitalize">{{project.title}}</h3>
       <p>{{project.description}}</p>
-      <a target="_blank" class="btn btn-primary" href="{{project.docs}}">Docs</a>
-      <a target="_blank" class="btn btn-success" href="{{project.code}}">Code</a>
+      <a class="btn btn-primary" href="{{project.docs}}" target="_blank">Docs</a>
+      <a class="btn btn-success" href="{{project.code}}" target="_blank">Code</a>
     </div>
     {% endfor %}
   </div>

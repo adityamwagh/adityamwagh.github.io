@@ -5,7 +5,8 @@ img {
     // Part 2: Override the height to auto, otherwise images will be stretched
     // when setting a width and height attribute on the img element.
     height: auto;
-    border-radius: 8px !important;
+    border: 1px solid lightgray;
+    border-radius: 1.25rem !important;
 }
 
 .remoji {

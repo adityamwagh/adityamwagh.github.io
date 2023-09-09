@@ -1,35 +1,26 @@
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="description"
-    content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="👋 Hi. I’m Aditya, a researcher in the AI4CE Lab at New York University headed by Prof. Chen Feng. I’m deeply interested in multimodal perception, localization & mapping algorithms for autonomous systems.">
 
   <!-- Font Awesome -->
-  <script async src="https://kit.fontawesome.com/299791cc6b.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/299791cc6b.js" async crossorigin="anonymous"></script>
 
   <!-- KaTex -->
-  <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
-    integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous" />
-
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css"
-    integrity="sha256-6hqHMqXTVEds1R8HgKisLm3l/doneQs+rS1a5NLmwwo=" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" defer rel="stylesheet" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
   <!-- Page title -->
   <title>
     {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
   </title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="shortcut icon" type="image/png" href="{{ site.baseurl }}/assets/icons/icon.png" />
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" />
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}"
-    href="{{ /feed.xml | prepend: site.baseurl | prepend: site.url }}" />
+  <link type="image/png" href="{{ site.baseurl }}/assets/icons/icon.png" rel="shortcut icon">
+  <link href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" rel="stylesheet">
+  <link href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" rel="canonical">
+  <link type="application/rss+xml" href="{{ /feed.xml | prepend: site.baseurl | prepend: site.url }}" title="{{ site.title }}" rel="alternate">
 </head>

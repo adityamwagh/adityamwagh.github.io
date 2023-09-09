@@ -14,6 +14,8 @@ body {
     font-size: $font-size;
     letter-spacing: $letter-spacing;
     -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
 }
 
 header {
@@ -76,12 +78,6 @@ u {
     font-size: 1.25em;
 }
 
-img {
-    .rounded {
-        border-radius: .5rem !important;
-    }
-}
-
 .rounded {
     border-radius: 1.25rem !important;
 }
@@ -128,7 +124,7 @@ abbr[title] {
 }
 
 .text-justify {
-    text-align: left !important;
+    text-align: justify !important;
 }
 
 /* Remove border from toggler */
@@ -145,7 +141,7 @@ abbr[title] {
 }
 
 /* Lines of the Toggler */
-.toggler-icon{
+.toggler-icon {
     width: 32px;
     height: 3px;
     background-color: #777777;
@@ -154,7 +150,7 @@ abbr[title] {
 }
 
 /* Adds Space between the lines */
-.middle-bar{
+.middle-bar {
     margin: 7px auto;
 }
 
