@@ -4,7 +4,6 @@ _site
 .gitignore
 images/old_icon.png
 portfolio_website.code-workspace
-Gemfile.lock
 clean-portfolio.jpg:Zone.Identifier
 .jekyll-metadata
 vendor
