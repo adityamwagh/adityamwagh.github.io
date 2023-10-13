@@ -38,7 +38,7 @@ sass:
   style: compressed
 
 # Other options
-permalink: blog/:title
+permalink: /:title/
 
 exclude:
   - .sass-cache/
