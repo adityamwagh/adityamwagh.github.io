@@ -1,11 +1,23 @@
 # Projects
+- title: Deep Image Matching using Local Feature Transformer
+  description: Pose estimation pipeline to enable 3D reconstruction using Local Feature Transformer (LoFTR)
+  docs: https://github.com/adityamwagh/DeepIM
+  code: https://github.com/adityamwagh/DeepIM
+  image: https://github.com/adityamwagh/DeepIM/blob/main/results/res2.png
+
+- title: State Estimation of a Drone by Visual-Inertial Sensor Fusion
+  description: Optimal state estimation using extended & unscented kalman filter implemented using MATLAB
+  docs: https://adityamwagh.github.io/state-estimation
+  code: https://adityamwagh.github.io/state-estimation
+  image: https://github.com/adityamwagh/convae-dimen-reduc/raw/main/autoencoder_latent_space_reduced.png
+
 - title: Dimensionality Reduction using Convolutional Autoencoders
   description: A visualization in reduced dimension to show how autoencoders learn features in the Fashion MNIST dataset.
   docs: https://adityamwagh.github.io/convae-dimen-reduc
   code: https://github.com/adityamwagh/convae-dimen-reduc
   image: https://github.com/adityamwagh/convae-dimen-reduc/raw/main/autoencoder_latent_space_reduced.png
 
-- title: Plane Extraction from a 3D Point Cloud
+- title: Fast Plane Extraction from a 3D Point Cloud
   description: Fast, Parallel implementation of the RANSAC algorithm to segment a plane in a point cloud.
   docs: https://adityamwagh.github.io/ransac-pcl
   code: https://github.com/adityamwagh/ransac-pcl
@@ -23,8 +35,8 @@
   code: https://github.com/adityamwagh/pose-estimation
   image: https://github.com/adityamwagh/pose-estimation/raw/main/AprilCalib_orgframe_00007.png
 
-- title: Power Cable detection
-  description: A Mask R-CNN model for detecting power cables.
+- title: Power cable detection using Deep Learning
+  description: Convolutional Neural Network for detecting power cables.
   docs: https://adityamwagh.github.io/cable-detection
   code: https://github.com/adityamwagh/cable-detection
   image: /assets/images/pl.webp
