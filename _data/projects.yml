@@ -13,14 +13,14 @@
 
 - title: State Estimation of a Drone by Visual-Inertial Sensor Fusion
   description: Optimal state estimation using extended & unscented kalman filter implemented using MATLAB
-  docs: https://adityamwagh.github.io/state-estimation
-  code: https://adityamwagh.github.io/state-estimation
+  docs: https://github.com/adityamwagh/state-estimation
+  code: https://github.com/adityamwagh/state-estimation
   image: /assets/images/sensor-fusion.jpg
 
 - title: 3D Object Detection in LiDAR Point Clouds
   description: Benchmarking of LiDAR 3D Object Detection networks (VoxelNet, PointNet++, PointPillars) on KITTI Dataset.
-  docs: https://adityamwagh.github.io/fast3d
-  code: https://adityamwagh.github.io/fast3d
+  docs: https://github.com/adityamwagh/fast3d
+  code: https://github.com/adityamwagh/fast3d
   image: /assets/images/fast3d.png
 
 - title: Dimensionality Reduction using Convolutional Autoencoders
