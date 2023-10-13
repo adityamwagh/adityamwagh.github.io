@@ -1,15 +1,27 @@
 # Projects
+- title: SuperSLAM
+  description: "SuperSLAM: Open Source Framework for Deep Learning based Visual SLAM"
+  docs: https://github.com/adityamwagh/SuperSLAM
+  code: https://github.com/adityamwagh/SuperSLAM
+  image: /assets/images/room.png
+
 - title: Deep Image Matching using Local Feature Transformer
   description: Pose estimation pipeline to enable 3D reconstruction using Local Feature Transformer (LoFTR)
   docs: https://github.com/adityamwagh/DeepIM
   code: https://github.com/adityamwagh/DeepIM
-  image: https://github.com/adityamwagh/DeepIM/blob/main/results/res2.png
+  image: /assets/images/loftr-arch.png
 
 - title: State Estimation of a Drone by Visual-Inertial Sensor Fusion
   description: Optimal state estimation using extended & unscented kalman filter implemented using MATLAB
   docs: https://adityamwagh.github.io/state-estimation
   code: https://adityamwagh.github.io/state-estimation
-  image: https://github.com/adityamwagh/convae-dimen-reduc/raw/main/autoencoder_latent_space_reduced.png
+  image: /assets/images/sensor-fusion.jpg
+
+- title: 3D Object Detection in LiDAR Point Clouds
+  description: Benchmarking of LiDAR 3D Object Detection networks (VoxelNet, PointNet++, PointPillars) on KITTI Dataset.
+  docs: https://adityamwagh.github.io/fast3d
+  code: https://adityamwagh.github.io/fast3d
+  image: /assets/images/fast3d.png
 
 - title: Dimensionality Reduction using Convolutional Autoencoders
   description: A visualization in reduced dimension to show how autoencoders learn features in the Fashion MNIST dataset.
