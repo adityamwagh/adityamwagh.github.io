@@ -8,12 +8,13 @@ permalink: /resume
   <div id="canvas_div">
     <button type="button" class="btn btn-primary btn-lg btn-block my-4"><a class="text-white"
         href="{{ site.resume_link}}">Download</a></button>
+        <span class="nav-link my-5">{% include socials.html%}</span>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.min.js"></script>
   <script>
     // If absolute URL from the remote server is provided, configure the CORS
     // header on that server.
-    var url = 'https://raw.githubusercontent.com/adityamwagh/resume/master/ml_resume_aditya_wagh.pdf';
+    var url = '{{ site.resume_link}}';
     // Loaded via <script> tag, create shortcut to access PDF.js exports.
     var pdfjsLib = window['pdfjs-dist/build/pdf'];
     // The workerSrc property shall be specified.
