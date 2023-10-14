@@ -2,7 +2,7 @@
 
 I am interested in multimodal **perception, localization & mapping algorithms** for autonomous systems.
 
-I did my MS at **New York University** (one of the 35 best universities in the world) and BEng at **BITS Pilani** (one of the 6 best engineering institutions in India).
+I received my MS from **New York University** and BEng at **BITS Pilani**, both in Electrical Engineering, with a specialization in Robotics, AI and Computer Vision.
 
 During my undergrad, I worked with [Dr. Sumeet Saurav](https://www.ceeri.res.in/profiles/sumeet-saurav/) in the Intelligent Systems Research Group at [CEERI, Pilani](https://www.ceeri.res.in/), a prominent federal research institute.
 
