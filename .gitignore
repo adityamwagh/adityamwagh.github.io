@@ -8,3 +8,4 @@ clean-portfolio.jpg:Zone.Identifier
 .jekyll-metadata
 vendor
 .bundle
+.vscode
