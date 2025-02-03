@@ -3,7 +3,7 @@
 
     <!-- Job Advert -->
       <div class="alert alert-primary border border-primary rounded px-3" role="alert">
-      <p> I am actively looking for full-time <b>Computer Vision Engineer</b> positions.</p>
+      <p> I am actively looking for full-time positions in Machine Learning, Robotics, Self-Driving, AR/VR, Computer Vision.</p>
       <p> Reach out on <a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>
         or <a href="mailto:adityamwagh@outlook.com">Email</a> me if you or someone you know is hiring 🙂</p>
     </div>
@@ -20,15 +20,16 @@
     <!-- About Me -->
     <div class="col-lg-6">
       <div class="row ">
-        <h1 class="text-center" style="font-size: 2.75rem;">
-        <span>{{site.firstname}}
-            <span class="text-muted">{{site.secondname}}</span> </span></h1>
         <div>
-        {% capture my_include %}{% include about.md %}{% endcapture %}
-        {{ my_include | markdownify }}
+        {% capture about %}{% include about.md %}{% endcapture %}
+        {{ about | markdownify }}
         </div>
       </div>
     </div>
 
+    <div>
+      {% capture techstack %}{% include techstack.md %}{% endcapture %}
+      {{ techstack | markdownify }}
+  </div>
   </div>
 </div>
