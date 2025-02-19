@@ -277,7 +277,7 @@ GEM
       uri
     net-http-persistent (4.0.5)
       connection_pool (~> 2.2)
-    nokogiri (1.18.2-x86_64-linux-gnu)
+    nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
     octokit (4.25.1)
       faraday (>= 1, < 3)
