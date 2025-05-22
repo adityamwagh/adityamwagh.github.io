@@ -2,25 +2,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="👋 Hi. I’m Aditya, a NYC-based Roboticist working on Machine Learning + Computer Vision and Robotics.">
+  <meta name="description"
+    content="👋 Hi. I’m Aditya, a software engineer working on Machine Learning + Computer Vision and Robotics.">
+  <!-- CRITICAL: Theme detection script FIRST -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      const theme = savedTheme || systemTheme;
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
 
   <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/299791cc6b.js" async crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/299791cc6b.js" crossorigin="anonymous" defer></script>
 
-  <!-- KaTex -->
-  <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" defer rel="stylesheet" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <!-- KaTeX CSS (defer has no effect on <link>; use preload if needed) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
+  </noscript>
+
+  <!-- Preconnects for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/icon.png">
+
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}">
+
+  <!-- Canonical and RSS -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}"
+    href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
 
   <!-- Page title -->
-  <title>
-    {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-  </title>
-
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <link type="image/png" href="{{ site.baseurl }}/assets/icons/icon.png" rel="shortcut icon">
-  <link href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" rel="stylesheet">
-  <link href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" rel="canonical">
-  <link type="application/rss+xml" href="{{ /feed.xml | prepend: site.baseurl | prepend: site.url }}" title="{{ site.title }}" rel="alternate">
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 </head>

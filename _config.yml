@@ -15,7 +15,6 @@ social:
     - https://github.com/adityamwagh
 
 lang: en-US
-resume_link: https://ywaspa.dm.files.1drv.com/y4mzupevE4AawmnS-PCHJBE4gdH6mgy7qdjwk_7HCrpVOu0-DfFYm6Dz1cn7FYZHykGxC6L5d3Rp51bkys3S_uQiNd8idCOrFh3CEVIY64djuoL4MPBEmxfl-H6FkcN-H7ygJdqvoA6Y2vqUgAxVgy3Ps3pGt03S1Y4EA7ui532ezDnTaDr0X4O-AI9ZGodDSdDICmgaVoFF7esm_7mcnmlTQ
 baseurl: ""
 url: "https://adityamwagh.github.io/"
 firstname: Aditya
@@ -51,8 +50,3 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-
-algolia:
-  application_id: OWPETZ9UYV
-  index_name: site_search
-  search_only_api_key: a2056bd20cce65e7c4a939b867d91040S

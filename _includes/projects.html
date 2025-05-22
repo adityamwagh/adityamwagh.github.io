@@ -1,20 +1,29 @@
-<div>
-  <h1 class="text-center" id="projects">Projects</h1>
-  <p class="text-center">
-    Below is a list of my notable projects. Feel free to have a look at whatever you find
-    interesting!
+<div class="my-5">
+  <h1 class="text-center mb-4" id="projects">Projects</h1>
+  <p class="text-center mb-5">
+    Below is a list of my notable projects. Feel free to have a look at whatever you find interesting!
   </p>
-  <div class="grid ">
+
+  <div class="projects-list">
     {% for project in site.data.projects %}
-    <div class="g-col-12 g-col-md-6 text-center p-3 rounded shadow">
-      <img class="img-fluid rounded" src="{{project.image}}" alt="{{project.description}}">
-      <h3 class="my-3 text-capitalize">{{project.title}}</h3>
-      <p>{{project.description}}</p>
-      <!-- <a class="btn btn-primary" href="{{project.docs}}" target="_blank">Docs</a> -->
-      <a class="btn btn-success" href="{{project.code}}" target="_blank">Code</a>
+    <div class="card border border-secondary-subtle my-4 shadow-sm rounded-3">
+      <div class="row g-0 flex-column flex-md-row align-items-center">
+
+        <!-- Project Image -->
+        <div class="col-md-4 text-center p-3">
+          <img src="{{ project.image }}" alt="{{ project.title }}" class="img-fluid border-0 rounded w-100"
+            style="max-height: 220px; object-fit: cover;">
+        </div>
+
+        <!-- Project Details -->
+        <div class="col-md-8 p-4">
+          <h5 class="fs-3 text-capitalize mb-3 mt-0">{{ project.title }}</h5>
+          <p class="card-text mb-4">{{ project.description }}</p>
+          <a href="{{ project.code }}" target="_blank" class="btn btn-success rounded btn-sm px-4 py-2">View Code</a>
+        </div>
+
+      </div>
     </div>
     {% endfor %}
   </div>
-
-
 </div>

@@ -1,7 +1,98 @@
-<header class="fixed-top">
+<header class="fixed-top mb-5">
   <script>
-    document.querySelector('.navbar-toggler').addEventListener('click', function () {
-      this.classList.toggle('active');
+    // Dark theme toggle functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-bs-theme');
+      let newTheme;
+
+      if (currentTheme === 'dark') {
+        newTheme = 'light';
+      } else {
+        newTheme = 'dark';
+      }
+
+      // Save the manual preference
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+    }
+
+    // Function to update theme icons
+    function updateThemeIcons(theme) {
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (theme === 'dark') {
+        if (themeIcon) themeIcon.className = 'fas fa-moon';
+      } else {
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+      }
+    }
+
+    // Function to apply theme
+    function applyTheme(theme) {
+      const navbar = document.querySelector('.navbar');
+
+      document.documentElement.setAttribute('data-bs-theme', theme);
+
+      // Update navbar classes based on theme
+      if (theme === 'dark') {
+        navbar.classList.remove('navbar-light');
+        navbar.classList.add('navbar-dark');
+      } else {
+        navbar.classList.remove('navbar-dark');
+        navbar.classList.add('navbar-light');
+      }
+
+      updateThemeIcons(theme);
+    }
+
+    // Get system theme preference
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // Initialize theme and navbar functionality on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      // Theme initialization
+      const savedTheme = localStorage.getItem('theme');
+
+      if (savedTheme) {
+        // Use saved manual preference
+        applyTheme(savedTheme);
+      } else {
+        // Follow system preference
+        const systemTheme = getSystemTheme();
+        applyTheme(systemTheme);
+      }
+
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        // Only follow system changes if user hasn't manually set a preference
+        if (!localStorage.getItem('theme')) {
+          const newSystemTheme = e.matches ? 'dark' : 'light';
+          applyTheme(newSystemTheme);
+        }
+      });
+
+      // Navbar toggler functionality
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+
+      if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener('click', function () {
+          // Toggle active class for hamburger animation
+          this.classList.toggle('active');
+        });
+
+        // Listen for Bootstrap collapse events to sync the hamburger state
+        navbarCollapse.addEventListener('hidden.bs.collapse', function () {
+          navbarToggler.classList.remove('active');
+        });
+
+        navbarCollapse.addEventListener('shown.bs.collapse', function () {
+          navbarToggler.classList.add('active');
+        });
+      }
     });
   </script>
 
@@ -14,7 +105,8 @@
       </a>
 
       <!-- Toggler/collapsibe Button -->
-      <button class="navbar-toggler mr-3 justify-content-end" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
+      <button class="navbar-toggler mr-3 justify-content-end" data-target="#collapsibleNavbar" data-toggle="collapse"
+        type="button">
         <span class="toggler-icon top-bar"></span>
         <span class="toggler-icon middle-bar"></span>
         <span class="toggler-icon bottom-bar"></span>
@@ -32,7 +124,14 @@
           <li class="nav-item mx-auto">
             <a class="nav-link" href="/blog"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;blog</a>
           </li>
-          
+
+          <!-- Theme Toggle -->
+          <li class="nav-item mx-auto no-transition">
+            <a class="nav-link" href="#" onclick="toggleTheme(); return false;" title="Toggle Dark Mode">
+              <i id="theme-icon" class="fas fa-sun"></i>&nbsp;theme
+            </a>
+          </li>
+
         </ul>
       </div>
     </nav>

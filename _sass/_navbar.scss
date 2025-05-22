@@ -1,0 +1,116 @@
+/* Smooth fade animation for nav items - MOBILE ONLY */
+@media (max-width: 767.98px) {
+    .navbar-nav .nav-item {
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        transform: translateY(-15px) translateZ(0);
+        will-change: opacity, transform;
+    }
+
+    /* Smooth container fade */
+    .navbar-collapse {
+        transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity;
+    }
+
+    .navbar-collapse.collapsing {
+        opacity: 0.3;
+        height: auto !important;
+    }
+
+    .navbar-collapse.collapse:not(.show) {
+        display: block !important;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .navbar-collapse.show {
+        opacity: 1;
+        height: auto;
+    }
+
+    /* Staggered nav item animations */
+    .navbar-collapse.show .nav-item {
+        opacity: 1;
+        transform: translateY(0) translateZ(0);
+    }
+
+    /* Staggered delays for smooth cascade */
+    .navbar-collapse.show .nav-item:nth-child(1) {
+        transition-delay: 0.08s;
+    }
+
+    .navbar-collapse.show .nav-item:nth-child(2) {
+        transition-delay: 0.16s;
+    }
+
+    .navbar-collapse.show .nav-item:nth-child(3) {
+        transition-delay: 0.24s;
+    }
+
+    .navbar-collapse.show .nav-item:nth-child(4) {
+        transition-delay: 0.32s;
+    }
+}
+
+/* Desktop - ensure navbar is visible */
+@media (min-width: 768px) {
+    .navbar-collapse.collapse:not(.show) {
+        display: flex !important;
+        opacity: 1 !important;
+        height: auto !important;
+    }
+
+    .navbar-nav .nav-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* Smooth hamburger animation - works on all screens */
+.navbar-toggler {
+    border: none;
+    padding: 6px 8px;
+    outline: none;
+    position: relative;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.toggler-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: currentColor;
+    border-radius: 2px;
+    margin: 4px 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.15, 0.265, 1.15);
+    position: relative;
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+/* Smooth X formation */
+.navbar-toggler.active .top-bar {
+    transform: translateY(7px) rotate(45deg) translateZ(0);
+}
+
+.navbar-toggler.active .middle-bar {
+    opacity: 0;
+    transform: scale(0) translateZ(0);
+}
+
+.navbar-toggler.active .bottom-bar {
+    transform: translateY(-7px) rotate(-45deg) translateZ(0);
+}
+
+/* Add subtle background feedback */
+.navbar-toggler:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}

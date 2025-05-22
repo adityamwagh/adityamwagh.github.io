@@ -4,6 +4,8 @@ title: Install PyTorch on NYU Greene High Performance Computing Cluster.
 date: 2022-11-10 13:19 -0500
 publish: true
 author: Aditya Wagh
+categories: [tutorial]
+tags: [slurm, pytorch]
 excerpt: NYU compute cluster documentation for ROB-GY 6203 Robot Perception, a graduate level course about 3d & 2d vision I co-taught with Prof. Chen Feng (cfeng@nyu.edu) at NYU's Tandon School Of Engineering
 ---
 
@@ -11,35 +13,29 @@ This documentation is fairly primitive and is intended to introduce you to NYU's
 
 ## How to access compute resources for Robot Perception?
 
-Since all of you already have access to HPC, you need to remotely acess the cluster shell (terminal where you input commands). You **need to be connected to the NYU network via a VPN or by being physically being on-campus.** to access the cluster shell.
+Since all of you already have access to HPC, you need to remotely access the cluster shell (terminal where you input commands). You **need to be connected to the NYU network via a VPN or by being physically being on-campus** to access the cluster shell.
 
-Use the command below to log in to the HPC Cluster. It will ask you for your password. Enter the password that you use for logging in using your NetID. It will also ask you something related to fingerprint, type `yes` if that prompt shows up. This is to add the cluster in the list of trusted computer.
+Use the command below to log in to the HPC Cluster. It will ask you for your password. Enter the password that you use for logging in using your NetID. It will also ask you something related to fingerprint, type `yes` if that prompt shows up. This is to add the cluster in the list of trusted computers.
 
 ```bash
 ssh <netid>@greene.hpc.nyu.edu
 ```
 
-![SSH Login Screen](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-screen.png)
+After this step, your prompt will change to show that you're logged into the Greene cluster. By default, you are in the `/home/<netid>/` or `~` folder. The prompt will display something like `[<netid>@log-2 ~]$` where `log-2` represents the name of the login node. There are three login nodes: `log-1`, `log-2` and `log-3`.
 
-After this step, your prompt will look like this, except the `(base)` part. That is something specific to my shell. By default, you are in the `/home/<netid>/` or `~` folder. `log-2` represents the name of the login node, There are three login nodes: `log-1`, `log-2` and `log-3`.
-
-![SSH Login Screen](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/login-screen.png)
-
-Now you need to hop to NYU HPC's Google Cloud Bursting nodes intended for use in coursework. To do that, use the following snippet. Don't run jobs on NYU Greene since it's intended only for research purposes.
+Now you need to hop to NYU HPC's Google Cloud Bursting nodes intended for use in coursework. To do that, use the following command. Don't run jobs on NYU Greene since it's intended only for research purposes.
 
 ```bash
 ssh burst
 ```
 
-`log-burst` is the login node for the HPC's GCP Burst cluster. **You have to do the next steps in this cluster.**
-
-![burst ssh](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-burst.png)
+This will connect you to `log-burst`, which is the login node for the HPC's GCP Burst cluster. Your prompt will change to show `[<netid>@log-burst ~]$`. **You have to do the next steps in this cluster.**
 
 ## Installing Conda on HPC
 
-HPC documentation recommends using singularity to setup conda enviromments, however it's quite complicated and not easy for beginners. I prefer the method mentioned below, that allows us an alternative to singularity.
+HPC documentation recommends using singularity to setup conda environments, however it's quite complicated and not easy for beginners. I prefer the method mentioned below, that allows us an alternative to singularity.
 
-Frst, get a compute node on GCP Burst node. For now, don't worry about what this command does, in a later section I've explained what it does. This command will give you a shell in a compute node.
+First, get a compute node on GCP Burst node. For now, don't worry about what this command does, in a later section I've explained what it does. This command will give you a shell in a compute node.
 
 ```bash
 srun --account=rob_gy_6203-2022fa --cpus-per-task=8 --partition=interactive --mem=16GB --time=04:00:00 --pty /bin/bash
@@ -47,7 +43,7 @@ srun --account=rob_gy_6203-2022fa --cpus-per-task=8 --partition=interactive --me
 
 ### **Step 1:** Create directory for your conda installation
 
-We don’t want to create the environment in the home directory because of the 50GB quota limit in the `/home/<netID>/`folder.
+We don't want to create the environment in the home directory because of the 50GB quota limit in the `/home/<netID>/` folder.
 
 ```bash
 mkdir /scratch/<NetID>/miniconda3
@@ -62,13 +58,13 @@ sh Miniconda3-latest-Linux-x86_64.sh -b -p /scratch/<NetID>/miniconda3
 
 ### **Step 3:** Create script to activate Miniconda
 
-Create a script ``env.sh`` in `/scratch/<NetID>/` using the command the command below.
+Create a script `env.sh` in `/scratch/<NetID>/` using the command below.
 
 ```bash
 touch /scratch/<netID>/env.sh
 ```
 
-Now populate the `env.sh` file with the following contents. Use can use `vim, vi, emacs, nano` or any other favourite terminal text editor. Read more about how to use terminal editors. This is beyond the scope of this document.
+Now populate the `env.sh` file with the following contents. You can use `vim`, `vi`, `emacs`, `nano` or any other favorite terminal text editor. Read more about how to use terminal editors. This is beyond the scope of this document.
 
 ```bash
 #!/bin/bash
@@ -78,15 +74,15 @@ export PATH=/scratch/<NetID>/miniconda3/bin:$PATH
 export PYTHONPATH=/scratch/<NetID>/miniconda3/bin:$PATH
 ```
 
-Now, you can activate your conda package manager by doing
+Now, you can activate your conda package manager by running:
 
 ```bash
 source /scratch/<NetID>/env.sh
 ```
 
-By default, new conda environment and packages will be stored in `/scratch/<NetID>/miniconda3`
+By default, new conda environments and packages will be stored in `/scratch/<NetID>/miniconda3`
 
-For ease of managing environments, initialize conda on shell start by using the following command after doing the above steps. This will allow is the activate environments using `conda activate`
+For ease of managing environments, initialize conda on shell start by using the following command after doing the above steps. This will allow you to activate environments using `conda activate`:
 
 ```bash
 conda init
@@ -110,41 +106,23 @@ conda activate test
 conda install pytorch torchvision pytorch-cuda=11.7 -c pytorch -c nvidia
 ```
 
-The above steps can be seen pictorially in the images below. The pictures say the command to log into greene is `ssh greene` **BUT** that is specific to me. **You have to use the complete command `ssh <netid>@greene.hpc.nyu.edu`.**
-
-![sshgb-1](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-1.png)
-
-![sshgb-2](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-2.png)
-
-![sshgb-3](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-3.png)
-
-![sshgb-4](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-4.png)
-
-![sshgb-5](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-5.png)
-
-![sshgb-6](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-6.png)
-
-![sshgb-7](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-7.png)
-
-![sshgb-8](https://raw.githubusercontent.com/adityamwagh/hpc-tutorial/master/images/ssh-greene-burst-8.png)
-
 ## How to request for GPU nodes and run your code?
 
 There are 2 ways to do this, one is interactive and one is non-interactive.
 
-- **Interactive Mode:** In interactive mode, you can execute your code files just like you would on a terminal. To request for a interactive compute node, you have to use the `srun` command. To request a Tesla v100 GPU node with 2 CPUs for 4 hours, the following is the command you have to use. This will give you a terminal shell using which you can run your code just like you would on your computer.
+- **Interactive Mode:** In interactive mode, you can execute your code files just like you would on a terminal. To request an interactive compute node, you have to use the `srun` command. To request a Tesla v100 GPU node with 8 CPUs for 4 hours, use the following command. This will give you a terminal shell using which you can run your code just like you would on your computer.
 
 ```bash
 srun --account=rob_gy_6203-2022fa --cpus-per-task=8 --partition=n1s8-v100-1 --gres=gpu:v100:1 --time=04:00:00 --pty /bin/bash
 ```
 
-- **Non-Interactive Mode:** In Non-Interactive mode, you will submit a job which will be put in a queue. The processing of jobs in queue is automatically handled by the [SLURM workload manager](https://slurm.schedmd.com/documentation.html). This can be done using the following command.
+- **Non-Interactive Mode:** In Non-Interactive mode, you will submit a job which will be put in a queue. The processing of jobs in queue is automatically handled by the [SLURM workload manager](https://slurm.schedmd.com/documentation.html). This can be done using the following command:
 
 ```bash
 sbatch test.sbatch
 ```
 
-Contents of `test.sbatch`
+Contents of `test.sbatch`:
 
 ```bash
 #!/bin/bash
@@ -168,10 +146,9 @@ conda activate torch;
 
 ## run your code
 python test.py;
-
 ```
 
-Contents of `test.py`
+Contents of `test.py`:
 
 ```python
 #!/bin/env python
@@ -191,7 +168,7 @@ print(torch.cuda.get_device_name(torch.cuda.current_device()))
 print(torch.cuda.is_available())
 ```
 
-Common commands associated with non-interactive jobs
+Common commands associated with non-interactive jobs:
 
 - `squeue -u <netID>` or `squeue --me` : See the jobs you have submitted.
 - `scancel <JobID>` : Cancel a job; the JobID number can be seen using the `squeue` command.

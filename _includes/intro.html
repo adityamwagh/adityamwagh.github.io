@@ -1,35 +1,27 @@
-<div>
-  <div class="row rounded border border-light shadow mx-0 p-lg-3 p-3">
+<div class="container">
+  <div class="row align-items-center">
 
-    <!-- Job Advert -->
-      <div class="alert alert-primary border border-primary rounded px-3" role="alert">
-      <p> I am actively looking for full-time positions in Machine Learning, Robotics, Self-Driving, AR/VR, Computer Vision.</p>
-      <p> Reach out on <a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>
-        or <a href="mailto:adityamwagh@outlook.com">Email</a> me if you or someone you know is hiring 🙂</p>
-    </div>
+    <!-- Left: Image + Socials + Job Advert -->
+    <div class="col-lg-5 text-center mb-4 mb-lg-0">
+      <!-- Profile Image -->
+      <img src="assets/images/profile.webp" class="img-fluid rounded-circle shadow-sm mb-3" alt="Aditya Wagh"
+        style="max-width: 300px;">
 
-    <!-- Picture -->
-    <div class="col-md-6 my-auto mx-auto">
-      <!-- Image -->
-      <div class="row">
-        <img class="img-fluid img-thumbnail rounded mx-auto d-block p-0 w-75" src="assets/images/profile.webp" alt="An image of Aditya Wagh">
-        <span class="text-center py-5">{% include socials.html %}</span>
+      <!-- Social Icons -->
+      <div class="d-flex justify-content-center my-3">
+        {% include socials.html %}
       </div>
+
+
     </div>
 
-    <!-- About Me -->
-    <div class="col-lg-6">
-      <div class="row ">
-        <div>
-        {% capture about %}{% include about.md %}{% endcapture %}
+    <!-- Right: About Section -->
+    <div class="col-lg-7">
+      {% capture about %}{% include about.md %}{% endcapture %}
+      <div class="about-content">
         {{ about | markdownify }}
-        </div>
       </div>
     </div>
 
-    <div>
-      {% capture techstack %}{% include techstack.md %}{% endcapture %}
-      {{ techstack | markdownify }}
-  </div>
   </div>
 </div>
