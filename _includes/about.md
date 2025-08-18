@@ -15,6 +15,6 @@ And this is the list of domains I find exciting:
 
 I hold a MS in Electrical Engineering from [New York University (NYU)](https://nyu.edu) and a B.Eng (Honors) Electrical Engineering from [BITS Pilani](https://bits-pilani.ac.in).
 
-Always eager to learn new things, discuss and collaborate. Feel free to reach out to me via: [LinkedIn][linkedin], [Email][email] or [X/Twitter (Open DMs)][x]
+Always eager to learn new things, discuss and collaborate. Feel free to reach out to me via: [LinkedIn](https://www.linkedin.com/in/adityamwagh/), [Email](mailto:adityamwagh@outlook.com) or [X/Twitter (Open DMs)](https://www.x.com/adityamwagh/)
 
 
