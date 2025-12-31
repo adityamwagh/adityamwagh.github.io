@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Blog | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<section class="animate__animated animate__fadeInUp">
+  <h1>Blog</h1>
+
+  <ul class="blog-list">
+    {% for page in paginator.pages %}
+    <li>
+      <time datetime="{{ page.date | date(format='%Y-%m-%d') }}">{{ page.date | date(format="%b %-d, %Y") }}</time>
+      <a href="{{ page.permalink }}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if paginator.pages | length == 0 %}
+  <p>No posts yet.</p>
+  {% endif %}
+</section>
+{% endblock content %}

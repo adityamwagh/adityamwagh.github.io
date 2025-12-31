@@ -1,0 +1,543 @@
+/* Custom styles for navigation, footer, and layout */
+
+/* ========== Navigation ========== */
+header {
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fffff8;
+}
+
+@media (prefers-color-scheme: dark) {
+    header {
+        background-color: #151515;
+    }
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Desktop navigation */
+.desktop-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.desktop-nav a {
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.desktop-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Hide mobile elements on desktop */
+.mobile-menu-toggle,
+.hamburger-btn,
+.mobile-menu-overlay {
+    display: none;
+}
+
+/* ========== Mobile Navigation (max-width: 760px) ========== */
+@media (max-width: 760px) {
+    /* Hide desktop nav on mobile */
+    .desktop-nav {
+        display: none;
+    }
+
+    /* Hide checkbox */
+    .mobile-menu-toggle {
+        display: none;
+    }
+
+    /* Show hamburger button */
+    .hamburger-btn {
+        display: block;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+        position: relative;
+    }
+
+    /* Hamburger icon */
+    .hamburger-icon {
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: currentColor;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-icon::before,
+    .hamburger-icon::after {
+        content: '';
+        position: absolute;
+        width: 28px;
+        height: 2px;
+        background: currentColor;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-icon::before {
+        top: -8px;
+    }
+
+    .hamburger-icon::after {
+        top: 8px;
+    }
+
+    /* Animate to X when open */
+    .mobile-menu-toggle:checked + .hamburger-btn .hamburger-icon {
+        background: transparent;
+    }
+
+    .mobile-menu-toggle:checked + .hamburger-btn .hamburger-icon::before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    .mobile-menu-toggle:checked + .hamburger-btn .hamburger-icon::after {
+        transform: rotate(-45deg);
+        top: 0;
+    }
+
+    /* Full-screen overlay */
+    .mobile-menu-overlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fffff8;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-menu-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Menu content */
+    .mobile-menu-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .mobile-menu-content a {
+        font-size: 2rem;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-menu-overlay .mobile-menu-content a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-menu-overlay .mobile-menu-content a:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-menu-overlay .mobile-menu-content a:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+
+    .mobile-menu-content a:hover {
+        text-decoration: underline;
+    }
+}
+
+/* Dark mode for mobile menu */
+@media (max-width: 760px) and (prefers-color-scheme: dark) {
+    .mobile-menu-overlay {
+        background: #151515;
+    }
+}
+
+/* ========== Footer ========== */
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid #ccc;
+}
+
+footer p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    footer {
+        border-top-color: #555;
+    }
+}
+
+@media (max-width: 760px) {
+    footer {
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 1rem;
+    }
+}
+
+/* ========== Profile Card (Image + Social Icons) ========== */
+.profile-card {
+    float: left;
+    margin: 4rem 2rem 1rem 0;
+    text-align: center;
+}
+
+.profile-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+}
+
+.social-icons a {
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.social-icons svg {
+    width: 28px;
+    height: 28px;
+}
+
+.social-icons a:hover {
+    opacity: 1;
+}
+
+.intro-section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media (max-width: 760px) {
+    .profile-card {
+        float: none;
+        margin: 0 auto 1.5rem;
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    .social-icons {
+        margin-top: 1rem;
+    }
+}
+
+/* ========== Article/Content Responsive ========== */
+article {
+    padding: 3rem 0;
+}
+
+@media (max-width: 760px) {
+    article {
+        padding: 2rem 0;
+    }
+
+    article section > p,
+    article section > ul,
+    article section > ol,
+    article section > table {
+        width: 100%;
+    }
+}
+
+/* ========== Projects Section ========== */
+.project {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+
+.project:last-child {
+    border-bottom: none;
+}
+
+.project h3 {
+    margin-bottom: 0.5rem;
+    font-style: normal;
+    font-size: 1.8rem;
+}
+
+.project p {
+    margin-top: 0.5rem;
+}
+
+.project-image {
+    max-width: 220px;
+    height: auto;
+    float: right;
+    margin: 0 0 1rem 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .project {
+        border-bottom-color: #333;
+    }
+
+    .project-image {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (max-width: 1024px) {
+    .project-image {
+        max-width: 180px;
+    }
+
+    .project h3 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 760px) {
+    .project {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+
+    .project-image {
+        float: none;
+        max-width: 100%;
+        width: 100%;
+        margin: 0 0 1rem 0;
+        display: block;
+    }
+
+    .project h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ========== Tech Stack Badges ========== */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.badges img {
+    height: 24px;
+    width: auto;
+}
+
+@media (max-width: 760px) {
+    .badges {
+        gap: 0.4rem;
+    }
+
+    .badges img {
+        height: 22px;
+    }
+}
+
+/* ========== Blog List ========== */
+.blog-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.blog-list li {
+    padding: 0.75rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid #eee;
+}
+
+.blog-list li:last-child {
+    border-bottom: none;
+}
+
+.blog-list time {
+    font-size: 1rem;
+    color: #666;
+    white-space: nowrap;
+    min-width: 5rem;
+}
+
+.blog-list a {
+    flex: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .blog-list li {
+        border-bottom-color: #333;
+    }
+
+    .blog-list time {
+        color: #999;
+    }
+}
+
+@media (max-width: 760px) {
+    .blog-list li {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem 0;
+    }
+
+    .blog-list time {
+        font-size: 0.9rem;
+        min-width: auto;
+    }
+}
+
+/* ========== Typography Responsive ========== */
+@media (max-width: 760px) {
+    html {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+        margin-top: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-top: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.6rem;
+    }
+
+    p, ul, ol {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ========== Animate.css Integration ========== */
+.animate__animated {
+    animation-duration: 0.6s;
+    animation-fill-mode: both;
+}
+
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+
+.animate__fadeInUp {
+    animation-name: fadeInUp;
+}
+
+.animate__fadeInDown {
+    animation-name: fadeInDown;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Staggered animation delays for sections */
+section:nth-child(1) { animation-delay: 0s; }
+section:nth-child(2) { animation-delay: 0.1s; }
+section:nth-child(3) { animation-delay: 0.2s; }
+section:nth-child(4) { animation-delay: 0.3s; }
+section:nth-child(5) { animation-delay: 0.4s; }
+
+/* Smooth transitions for interactive elements */
+a {
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+/* ========== Utility: Container for wider content ========== */
+.full-width {
+    width: 100%;
+    max-width: none;
+}
+
+/* ========== Respect reduced motion preference ========== */
+@media (prefers-reduced-motion: reduce) {
+    .animate__animated {
+        animation: none;
+    }
+
+    * {
+        transition: none !important;
+    }
+}

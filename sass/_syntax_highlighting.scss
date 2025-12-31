@@ -1,0 +1,185 @@
+/* Syntax highlighting - Everforest theme */
+
+/* ========== Everforest Light ========== */
+pre {
+    background-color: #fdf6e3;
+    color: #5c6a72;
+}
+
+code {
+    background-color: #f4eedb;
+    color: #5c6a72;
+}
+
+pre code {
+    background: none;
+}
+
+/* Keywords (red) */
+.z-keyword {
+    color: #f85552;
+}
+
+/* Storage, modifiers (red) */
+.z-storage {
+    color: #f85552;
+}
+
+/* Strings (green) */
+.z-string {
+    color: #8da101;
+}
+
+/* Numbers, constants (purple) */
+.z-constant {
+    color: #df69ba;
+}
+
+/* Functions (aqua) */
+.z-variable.z-function,
+.z-entity.z-name.z-function,
+.z-support.z-function {
+    color: #35a77c;
+}
+
+/* Variables (blue) */
+.z-variable {
+    color: #3a94c5;
+}
+
+/* Parameters, options (orange) */
+.z-variable.z-parameter {
+    color: #f57d26;
+}
+
+/* Comments (grey) */
+.z-comment {
+    color: #939f91;
+    font-style: italic;
+}
+
+/* Punctuation */
+.z-punctuation {
+    color: #5c6a72;
+}
+
+/* Operators (orange) */
+.z-keyword.z-operator {
+    color: #f57d26;
+}
+
+/* Types, classes (orange) */
+.z-support,
+.z-entity.z-name.z-type,
+.z-entity.z-name.z-class {
+    color: #f57d26;
+}
+
+/* Tags (orange) */
+.z-entity.z-name.z-tag {
+    color: #f57d26;
+}
+
+/* Attributes (aqua) */
+.z-entity.z-other.z-attribute-name {
+    color: #35a77c;
+}
+
+/* Source/meta - default color */
+.z-source,
+.z-meta {
+    color: #5c6a72;
+}
+
+/* ========== Everforest Dark ========== */
+@media (prefers-color-scheme: dark) {
+    pre {
+        background-color: #2d353b;
+        color: #d3c6aa;
+    }
+
+    code {
+        background-color: #3d484d;
+        color: #d3c6aa;
+    }
+
+    pre code {
+        background: none;
+    }
+
+    /* Keywords (red) */
+    .z-keyword {
+        color: #e67e80;
+    }
+
+    /* Storage, modifiers (red) */
+    .z-storage {
+        color: #e67e80;
+    }
+
+    /* Strings (green) */
+    .z-string {
+        color: #a7c080;
+    }
+
+    /* Numbers, constants (purple) */
+    .z-constant {
+        color: #d699b6;
+    }
+
+    /* Functions (aqua) */
+    .z-variable.z-function,
+    .z-entity.z-name.z-function,
+    .z-support.z-function {
+        color: #83c092;
+    }
+
+    /* Variables (blue) */
+    .z-variable {
+        color: #7fbbb3;
+    }
+
+    /* Parameters, options (orange) */
+    .z-variable.z-parameter {
+        color: #e69875;
+    }
+
+    /* Comments (grey) */
+    .z-comment {
+        color: #859289;
+        font-style: italic;
+    }
+
+    /* Punctuation */
+    .z-punctuation {
+        color: #d3c6aa;
+    }
+
+    /* Operators (orange) */
+    .z-keyword.z-operator {
+        color: #e69875;
+    }
+
+    /* Types, classes (orange) */
+    .z-support,
+    .z-entity.z-name.z-type,
+    .z-entity.z-name.z-class {
+        color: #e69875;
+    }
+
+    /* Tags (orange) */
+    .z-entity.z-name.z-tag {
+        color: #e69875;
+    }
+
+    /* Attributes (aqua) */
+    .z-entity.z-other.z-attribute-name {
+        color: #83c092;
+    }
+
+    /* Source/meta - default color */
+    .z-source,
+    .z-meta {
+        color: #d3c6aa;
+    }
+}

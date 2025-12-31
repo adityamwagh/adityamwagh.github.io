@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hi. I'm Aditya, a software engineer working on Machine Learning + Computer Vision and Robotics.">
+
+  <!-- KaTeX CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+  <!-- Latin Modern Math font for equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lmweb@0.0.6/style/latinmodern-math.css">
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="/fonts/et-book-roman-line-figures.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="/fonts/et-book-bold-line-figures.woff" as="font" type="font/woff" crossorigin>
+
+  <!-- Animate.css for smooth animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ get_url(path='icons/icon.png') }}">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+
+  <!-- Canonical and RSS -->
+  <link rel="canonical" href="{% if current_url %}{{ current_url }}{% else %}{{ config.base_url }}{% endif %}">
+  <link rel="alternate" type="application/rss+xml" title="{{ config.title }}" href="{{ get_url(path='feed.xml') }}">
+
+  <!-- Page title -->
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <!-- Desktop nav links -->
+        <div class="desktop-nav">
+          <a href="{{ get_url(path='/') }}">Home</a>
+          <a href="{{ get_url(path='blog') }}">Blog</a>
+        </div>
+
+        <!-- Mobile hamburger button -->
+        <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle">
+        <label for="mobile-menu-toggle" class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="hamburger-icon"></span>
+        </label>
+
+        <!-- Full-screen mobile menu overlay -->
+        <div class="mobile-menu-overlay">
+          <div class="mobile-menu-content">
+            <a href="{{ get_url(path='/') }}">Home</a>
+            <a href="{{ get_url(path='blog') }}">Blog</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="animate__animated animate__fadeIn">
+      {% block content %}{% endblock content %}
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        <a href="https://www.linkedin.com/in/{{ config.extra.social.linkedin }}">LinkedIn</a> ·
+        <a href="https://github.com/{{ config.extra.social.github }}">GitHub</a> ·
+        <a href="https://twitter.com/{{ config.extra.social.twitter }}">Twitter</a> ·
+        <a href="mailto:{{ config.extra.general_email }}">Email</a>
+      </p>
+      <p>&copy; {{ now() | date(format="%Y") }} Aditya Wagh. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "63d568ab4f0b4139bbb58eaff605d429"}'></script>
+</body>
+</html>

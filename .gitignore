@@ -1,10 +1,17 @@
+# Zola output
+public/
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Old Jekyll files
 _site
 .sass-cache
 .jekyll-cache
-.gitignore
-images/old_icon.png
-portfolio_website.code-workspace
-clean-portfolio.jpg:Zone.Identifier
 .jekyll-metadata
 .bundle
-.vscode

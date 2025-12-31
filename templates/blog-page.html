@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<p class="subtitle">{{ page.date | date(format="%B %-d, %Y") }}{% if page.extra.author %} · {{ page.extra.author }}{% endif %}</p>
+
+<section>
+  <!-- KaTeX for math rendering -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  {{ page.content | safe }}
+</section>
+
+{% if page.earlier or page.later %}
+<nav>
+  <p>
+    {% if page.earlier %}
+    <a href="{{ page.earlier.permalink }}">← {{ page.earlier.title }}</a>
+    {% endif %}
+    {% if page.earlier and page.later %} | {% endif %}
+    {% if page.later %}
+    <a href="{{ page.later.permalink }}">{{ page.later.title }} →</a>
+    {% endif %}
+  </p>
+</nav>
+{% endif %}
+{% endblock content %}

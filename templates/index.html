@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }}{% endblock title %}
+
+{% block content %}
+<!-- Intro Section -->
+<section class="animate__animated animate__fadeInUp intro-section">
+  <div class="profile-card">
+    <img src="{{ get_url(path='images/profile.webp') }}" class="profile-image" alt="{{ config.author }}">
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/{{ config.extra.social.linkedin }}" aria-label="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+      <a href="https://github.com/{{ config.extra.social.github }}" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="https://twitter.com/{{ config.extra.social.twitter }}" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="mailto:{{ config.extra.general_email }}" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <h1>Hi, I'm {{ config.extra.firstname }} {{ config.extra.secondname }}</h1>
+
+  <p>I'm a Research Engineer specializing in the intersection of Machine Learning, 3D Computer Vision, and Robotics. My work focuses on enabling machines to perceive, understand, and navigate the physical world autonomously.</p>
+
+  <p>My research experience spans Visual SLAM, Visual-Inertial Odometry, Point Cloud Registration, Semantic Segmentation, 3D Object Detection, and efficient Machine Learning Inference. I'm particularly drawn to problems where geometric reasoning meets learned representations—building systems that can localize, map, and interpret complex environments in real-time.</p>
+
+  <p>Looking ahead, I'm excited about the convergence of foundation models with embodied intelligence: Vision-Language-Action models for robot manipulation, language-grounded semantic SLAM, and the broader field of robot learning. I believe the next frontier lies in general-purpose robots—humanoids, mobile manipulators, and autonomous systems—that can understand and act upon natural language instructions in unstructured environments.</p>
+
+  <p>I hold a M.S. in Electrical Engineering from <a href="https://nyu.edu">New York University</a> and a B.Eng. (Honors) in Electrical Engineering from <a href="https://bits-pilani.ac.in">BITS Pilani</a>.</p>
+</section>
+
+<!-- Tech Stack Section -->
+<section class="animate__animated animate__fadeInUp">
+  <h2>Tech Stack</h2>
+
+  <h3>Experienced</h3>
+  <div class="badges">
+    <img src="https://img.shields.io/badge/Python-3670A0?style=flat&logo=python&logoColor=ffdd54" alt="Python">
+    <img src="https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white" alt="C++">
+    <img src="https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white" alt="C">
+    <img src="https://img.shields.io/badge/CUDA-00C853?style=flat&logo=nvidia&logoColor=white" alt="CUDA">
+    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25?style=flat&logo=gnu-bash&logoColor=white" alt="Bash">
+    <img src="https://img.shields.io/badge/MATLAB-FFFFFF?style=flat&logo=mathworks" alt="MATLAB">
+    <img src="https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML">
+    <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS">
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+    <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=PyTorch&logoColor=white" alt="PyTorch">
+    <img src="https://img.shields.io/badge/OpenCV-white?style=flat&logo=opencv&logoColor=white" alt="OpenCV">
+    <img src="https://img.shields.io/badge/Open3D-black?style=flat&logo=open3d&logoColor=white" alt="Open3D">
+    <img src="https://img.shields.io/badge/Keras-D00000?style=flat&logo=Keras&logoColor=white" alt="Keras">
+    <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=TensorFlow&logoColor=white" alt="TensorFlow">
+    <img src="https://img.shields.io/badge/Hugging_Face-fee133?style=flat&logo=huggingface&logoColor=black" alt="Hugging Face">
+    <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white" alt="Scikit-learn">
+    <img src="https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white" alt="NumPy">
+    <img src="https://img.shields.io/badge/SciPy-045a73?style=flat&logo=scipy&logoColor=white" alt="SciPy">
+    <img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white" alt="Pandas">
+    <img src="https://img.shields.io/badge/CMake-064F8C?style=flat&logo=cmake&logoColor=white" alt="CMake">
+    <img src="https://img.shields.io/badge/ONNX-white?style=flat&logo=onnx&logoColor=black" alt="ONNX">
+    <img src="https://img.shields.io/badge/TensorRT-00C853?style=flat&logo=nvidia&logoColor=white" alt="TensorRT">
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker">
+    <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=white" alt="Linux">
+  </div>
+
+  <h3>Learning</h3>
+  <div class="badges">
+    <img src="https://img.shields.io/badge/Rust-D2691E?style=flat&logo=rust&logoColor=white" alt="Rust">
+    <img src="https://img.shields.io/badge/JAX-007FFF?style=flat&logo=google&logoColor=white" alt="JAX">
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="animate__animated animate__fadeInUp">
+  <h2 id="projects">Projects</h2>
+  <p>Below is a list of my notable projects. Feel free to have a look at whatever you find interesting!</p>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/room.png') }}" alt="SuperSLAM" class="project-image">
+    <h3>SuperSLAM</h3>
+    <p>SuperSLAM: Open Source Framework for Deep Learning based Visual SLAM</p>
+    <p><a href="https://github.com/adityamwagh/SuperSLAM" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/loftr-arch.png') }}" alt="Deep Image Matching" class="project-image">
+    <h3>Deep Image Matching using Local Feature Transformer</h3>
+    <p>Pose estimation pipeline to enable 3D reconstruction using Local Feature Transformer (LoFTR)</p>
+    <p><a href="https://github.com/adityamwagh/DeepIM" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/sensor-fusion.jpg') }}" alt="State Estimation" class="project-image">
+    <h3>State Estimation of a Drone by Visual-Inertial Sensor Fusion</h3>
+    <p>Optimal state estimation using extended & unscented kalman filter implemented using MATLAB</p>
+    <p><a href="https://github.com/adityamwagh/state-estimation" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/fast3d.png') }}" alt="3D Object Detection" class="project-image">
+    <h3>3D Object Detection in LiDAR Point Clouds</h3>
+    <p>Benchmarking of LiDAR 3D Object Detection networks (VoxelNet, PointNet++, PointPillars) on KITTI Dataset.</p>
+    <p><a href="https://github.com/adityamwagh/fast3d" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/dimen-reduc.png') }}" alt="Dimensionality Reduction" class="project-image">
+    <h3>Dimensionality Reduction using Convolutional Autoencoders</h3>
+    <p>A visualization in reduced dimension to show how autoencoders learn features in the Fashion MNIST dataset.</p>
+    <p><a href="https://github.com/adityamwagh/convae-dimen-reduc" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/ransac-plane.jpg') }}" alt="Fast Plane Extraction" class="project-image">
+    <h3>Fast Plane Extraction from a 3D Point Cloud</h3>
+    <p>Fast, Parallel implementation of the RANSAC algorithm to segment a plane in a point cloud.</p>
+    <p><a href="https://github.com/adityamwagh/ransac-pcl" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/damage-assessment.png') }}" alt="Damage Assessment" class="project-image">
+    <h3>Post-Earthquake damage assessment using FCNs</h3>
+    <p>A convolutional neural network for multi-task visual damage assessment.</p>
+    <p><a href="https://github.com/adityamwagh/damage-assessment" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/pose-estimation.png') }}" alt="Pose Estimation" class="project-image">
+    <h3>Two-View geometry based pose estimation</h3>
+    <p>Relative Pose estimation using OpenCV</p>
+    <p><a href="https://github.com/adityamwagh/pose-estimation" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/pl.webp') }}" alt="Power cable detection" class="project-image">
+    <h3>Power cable detection using Deep Learning</h3>
+    <p>Convolutional Neural Network for detecting power cables.</p>
+    <p><a href="https://github.com/adityamwagh/cable-detection" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/vcrnn.webp') }}" alt="Variable Computation in RNNs" class="project-image">
+    <h3>Variable Computation in RNNs</h3>
+    <p>A modification in a RNN unit that reduces redundant computation.</p>
+    <p><a href="https://github.com/adityamwagh/vcrnn" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/tango-plus.webp') }}" alt="Tango+" class="project-image">
+    <h3>Tango+</h3>
+    <p>A tango inspired dark theme for Visual Studio Code.</p>
+    <p><a href="https://github.com/adityamwagh/tango-plus" target="_blank">View Code</a></p>
+  </div>
+
+  <div class="project">
+    <img src="{{ get_url(path='images/clean-portfolio.webp') }}" alt="Clean Portfolio" class="project-image">
+    <h3>Clean Portfolio</h3>
+    <p>A simple and elegant Jekyll theme for portfolio pages</p>
+    <p><a href="https://github.com/adityamwagh/jekyll-theme-clean-portfolio" target="_blank">View Code</a></p>
+  </div>
+</section>
+{% endblock content %}

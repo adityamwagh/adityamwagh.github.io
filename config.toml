@@ -1,0 +1,38 @@
+# Zola configuration
+# Documentation: https://www.getzola.org/documentation/getting-started/configuration/
+
+base_url = "https://adityamwagh.github.io"
+title = "Aditya Wagh"
+description = "On a quest to make intelligent machines!"
+author = "Aditya Wagh"
+
+# Compilation settings
+compile_sass = true
+minify_html = true
+build_search_index = false
+
+# Taxonomies (categories and tags for blog posts)
+taxonomies = [
+    { name = "categories", feed = false },
+    { name = "tags", feed = false },
+]
+
+# Generate RSS feed
+generate_feeds = true
+feed_filenames = ["feed.xml"]
+
+# Markdown settings
+[markdown]
+highlight_code = true
+highlight_theme = "css"
+
+# Extra variables accessible in templates
+[extra]
+firstname = "Aditya"
+secondname = "Wagh"
+general_email = "adityamwagh@outlook.com"
+
+[extra.social]
+linkedin = "adityamwagh"
+github = "adityamwagh"
+twitter = "adityamwagh"
