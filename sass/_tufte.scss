@@ -102,19 +102,33 @@ body {
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
-    body {
+    :root:not([data-theme="light"]) body {
         background-color: #151515;
         color: #ddd;
     }
 
-    a:link,
-    a:visited {
-        color: #a8dadc;
+    :root:not([data-theme="light"]) a:link,
+    :root:not([data-theme="light"]) a:visited {
+        color: inherit;
     }
 
-    hr {
+    :root:not([data-theme="light"]) hr {
         border-top-color: #555;
     }
+}
+
+:root[data-theme="dark"] body {
+    background-color: #151515;
+    color: #ddd;
+}
+
+:root[data-theme="dark"] a:link,
+:root[data-theme="dark"] a:visited {
+    color: inherit;
+}
+
+:root[data-theme="dark"] hr {
+    border-top-color: #555;
 }
 
 h1 {
@@ -435,17 +449,29 @@ table tr:last-child td {
 }
 
 @media (prefers-color-scheme: dark) {
-    table th {
+    :root:not([data-theme="light"]) table th {
         border-bottom-color: #ddd;
     }
 
-    table td {
+    :root:not([data-theme="light"]) table td {
         border-bottom-color: #555;
     }
 
-    table tr:last-child td {
+    :root:not([data-theme="light"]) table tr:last-child td {
         border-bottom-color: #ddd;
     }
+}
+
+:root[data-theme="dark"] table th {
+    border-bottom-color: #ddd;
+}
+
+:root[data-theme="dark"] table td {
+    border-bottom-color: #555;
+}
+
+:root[data-theme="dark"] table tr:last-child td {
+    border-bottom-color: #ddd;
 }
 
 @media (max-width: 760px) {

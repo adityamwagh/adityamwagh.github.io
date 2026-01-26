@@ -93,6 +93,100 @@ pre code {
 
 /* ========== Everforest Dark ========== */
 @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        pre {
+            background-color: #2d353b;
+            color: #d3c6aa;
+        }
+
+        code {
+            background-color: #3d484d;
+            color: #d3c6aa;
+        }
+
+        pre code {
+            background: none;
+        }
+
+        /* Keywords (red) */
+        .z-keyword {
+            color: #e67e80;
+        }
+
+        /* Storage, modifiers (red) */
+        .z-storage {
+            color: #e67e80;
+        }
+
+        /* Strings (green) */
+        .z-string {
+            color: #a7c080;
+        }
+
+        /* Numbers, constants (purple) */
+        .z-constant {
+            color: #d699b6;
+        }
+
+        /* Functions (aqua) */
+        .z-variable.z-function,
+        .z-entity.z-name.z-function,
+        .z-support.z-function {
+            color: #83c092;
+        }
+
+        /* Variables (blue) */
+        .z-variable {
+            color: #7fbbb3;
+        }
+
+        /* Parameters, options (orange) */
+        .z-variable.z-parameter {
+            color: #e69875;
+        }
+
+        /* Comments (grey) */
+        .z-comment {
+            color: #859289;
+            font-style: italic;
+        }
+
+        /* Punctuation */
+        .z-punctuation {
+            color: #d3c6aa;
+        }
+
+        /* Operators (orange) */
+        .z-keyword.z-operator {
+            color: #e69875;
+        }
+
+        /* Types, classes (orange) */
+        .z-support,
+        .z-entity.z-name.z-type,
+        .z-entity.z-name.z-class {
+            color: #e69875;
+        }
+
+        /* Tags (orange) */
+        .z-entity.z-name.z-tag {
+            color: #e69875;
+        }
+
+        /* Attributes (aqua) */
+        .z-entity.z-other.z-attribute-name {
+            color: #83c092;
+        }
+
+        /* Source/meta - default color */
+        .z-source,
+        .z-meta {
+            color: #d3c6aa;
+        }
+    }
+}
+
+:root[data-theme="dark"] {
     pre {
         background-color: #2d353b;
         color: #d3c6aa;

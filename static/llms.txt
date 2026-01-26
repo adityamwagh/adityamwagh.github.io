@@ -1,0 +1,13 @@
+# Aditya Wagh
+> Personal website with a blog, project highlights, and research interests.
+
+## Website
+- URL: https://adityamwagh.github.io/
+- Language: English
+
+## Sections
+- / : Homepage with bio, projects, and contact links.
+- /blog/ : Blog posts on robotics, machine learning, and related topics.
+
+## Contact
+- Email: adityamwagh@outlook.com

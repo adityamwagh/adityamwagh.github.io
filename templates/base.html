@@ -1,9 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% set meta_title = config.title %}
+  {% set meta_description = config.description %}
+  {% set meta_og_type = "website" %}
+  {% if page is defined %}
+    {% set meta_title = page.title ~ " | " ~ config.title %}
+    {% if page.description %}
+      {% set meta_description = page.description %}
+    {% elif page.summary %}
+      {% set meta_description = page.summary | striptags %}
+    {% endif %}
+    {% set meta_og_type = "article" %}
+  {% elif section is defined %}
+    {% set meta_title = section.title ~ " | " ~ config.title %}
+    {% if section.description %}
+      {% set meta_description = section.description %}
+    {% endif %}
+  {% elif term is defined %}
+    {% set meta_title = term.name ~ " | " ~ config.title %}
+  {% elif taxonomy is defined %}
+    {% set meta_title = taxonomy.name ~ " | " ~ config.title %}
+  {% endif %}
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Hi. I'm Aditya, a software engineer working on Machine Learning + Computer Vision and Robotics.">
+  <meta name="description" content="{{ meta_description }}">
+  <meta name="author" content="{{ config.author }}">
+  <meta name="robots" content="index,follow">
+  <meta property="og:site_name" content="{{ config.title }}">
+  <meta property="og:title" content="{{ meta_title }}">
+  <meta property="og:description" content="{{ meta_description }}">
+  <meta property="og:type" content="{{ meta_og_type }}">
+  <meta property="og:url" content="{% if current_url %}{{ current_url }}{% else %}{{ config.base_url }}{% endif %}">
+  <meta property="og:image" content="{{ get_url(path='images/profile.webp', absolute=true) }}">
+  <meta property="og:image:alt" content="Portrait of {{ config.author }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ meta_title }}">
+  <meta name="twitter:description" content="{{ meta_description }}">
+  <meta name="twitter:image" content="{{ get_url(path='images/profile.webp', absolute=true) }}">
+  <meta name="twitter:site" content="@{{ config.extra.social.twitter }}">
+
+  <script>
+    (function() {
+      try {
+        var storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          document.documentElement.setAttribute("data-theme", storedTheme);
+        }
+      } catch (err) {
+        // ignore
+      }
+    })();
+  </script>
 
   <!-- KaTeX CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -38,8 +87,51 @@
       <nav>
         <!-- Desktop nav links -->
         <div class="desktop-nav">
-          <a href="{{ get_url(path='/') }}">Home</a>
-          <a href="{{ get_url(path='blog') }}">Blog</a>
+          <a class="nav-link" href="{{ get_url(path='/') }}">
+            <span class="nav-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M3 10.5l9-7 9 7"></path>
+                <path d="M5 10v9h14v-9"></path>
+                <path d="M9 19v-5h6v5"></path>
+              </svg>
+            </span>
+            <span class="nav-link__label">Home</span>
+          </a>
+          <a class="nav-link" href="{{ get_url(path='blog') }}">
+            <span class="nav-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <path d="M14 2v6h6"></path>
+                <path d="M16 13H8"></path>
+                <path d="M16 17H8"></path>
+                <path d="M10 9H8"></path>
+              </svg>
+            </span>
+            <span class="nav-link__label">Blog</span>
+          </a>
+          <div class="nav-actions">
+            <button class="search-toggle search-toggle--text" type="button" data-search-open>
+              <span class="search-toggle__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M16.5 16.5l4 4"></path>
+                </svg>
+              </span>
+              <span class="search-toggle__label">Search</span>
+            </button>
+            <button class="theme-toggle" type="button" data-theme-toggle data-theme-target="dark" aria-pressed="false">
+              <span class="theme-toggle__icon" aria-hidden="true">
+                <svg class="theme-toggle__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg class="theme-toggle__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <circle cx="12" cy="12" r="3.5"></circle>
+                  <path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path>
+                </svg>
+              </span>
+              <span class="theme-toggle__label">Dark Mode</span>
+            </button>
+          </div>
         </div>
 
         <!-- Mobile hamburger button -->
@@ -51,13 +143,78 @@
         <!-- Full-screen mobile menu overlay -->
         <div class="mobile-menu-overlay">
           <div class="mobile-menu-content">
-            <a href="{{ get_url(path='/') }}">Home</a>
-            <a href="{{ get_url(path='blog') }}">Blog</a>
+            <a class="nav-link" href="{{ get_url(path='/') }}">
+              <span class="nav-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <path d="M3 10.5l9-7 9 7"></path>
+                  <path d="M5 10v9h14v-9"></path>
+                  <path d="M9 19v-5h6v5"></path>
+                </svg>
+              </span>
+              <span class="nav-link__label">Home</span>
+            </a>
+            <a class="nav-link" href="{{ get_url(path='blog') }}">
+              <span class="nav-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <path d="M14 2v6h6"></path>
+                  <path d="M16 13H8"></path>
+                  <path d="M16 17H8"></path>
+                  <path d="M10 9H8"></path>
+                </svg>
+              </span>
+              <span class="nav-link__label">Blog</span>
+            </a>
+            <button class="search-toggle search-toggle--text" type="button" data-search-open>
+              <span class="search-toggle__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M16.5 16.5l4 4"></path>
+                </svg>
+              </span>
+              <span class="search-toggle__label">Search</span>
+            </button>
+            <button class="theme-toggle" type="button" data-theme-toggle data-theme-target="dark" aria-pressed="false">
+              <span class="theme-toggle__icon" aria-hidden="true">
+                <svg class="theme-toggle__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg class="theme-toggle__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <circle cx="12" cy="12" r="3.5"></circle>
+                  <path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path>
+                </svg>
+              </span>
+              <span class="theme-toggle__label">Dark Mode</span>
+            </button>
           </div>
         </div>
       </nav>
     </div>
   </header>
+
+  <div class="search-overlay"
+       data-search-overlay
+       data-search-index-url="{{ get_url(path='search_index.en.js') }}"
+       data-search-index-fallback-url="{{ get_url(path='search_index.js') }}"
+       hidden>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-labelledby="search-title">
+      <button class="search-close" type="button" data-search-close aria-label="Close search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+          <path d="M6 6l12 12"></path>
+          <path d="M18 6l-12 12"></path>
+        </svg>
+      </button>
+      <h2 id="search-title">Search</h2>
+      <input class="search-input" type="search" placeholder="Search posts and pages..." autocomplete="off" spellcheck="false" data-search-input aria-controls="search-results-list">
+      <div class="search-hints">
+        <span>Close <kbd>Esc</kbd></span>
+        <span>Navigate <kbd>Up</kbd>/<kbd>Down</kbd></span>
+        <span>Open <kbd>Enter</kbd></span>
+      </div>
+      <p class="search-empty" data-search-empty>Start typing to search...</p>
+      <ul class="search-results" id="search-results-list" data-search-results role="listbox" aria-label="Search results"></ul>
+    </div>
+  </div>
 
   <main class="container">
     <article class="animate__animated animate__fadeIn">
@@ -76,6 +233,679 @@
       <p>&copy; {{ now() | date(format="%Y") }} Aditya Wagh. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var storageKey = "theme";
+      var toggles = document.querySelectorAll("[data-theme-toggle]");
+      if (!toggles.length) {
+        return;
+      }
+
+      var mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function getStoredTheme() {
+        try {
+          var value = localStorage.getItem(storageKey);
+          return value === "light" || value === "dark" ? value : null;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function setStoredTheme(theme) {
+        try {
+          localStorage.setItem(storageKey, theme);
+        } catch (err) {
+          // ignore
+        }
+      }
+
+      function setThemeAttribute(theme) {
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.setAttribute("data-theme", theme);
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+        }
+      }
+
+      function getActiveTheme() {
+        var stored = getStoredTheme();
+        if (stored) {
+          return stored;
+        }
+        var attrTheme = document.documentElement.getAttribute("data-theme");
+        if (attrTheme === "light" || attrTheme === "dark") {
+          return attrTheme;
+        }
+        return mediaQuery.matches ? "dark" : "light";
+      }
+
+      function updateToggleUI() {
+        var activeTheme = getActiveTheme();
+        var nextTheme = activeTheme === "dark" ? "light" : "dark";
+
+        toggles.forEach(function(button) {
+          button.setAttribute("aria-pressed", activeTheme === "dark" ? "true" : "false");
+          button.setAttribute("data-theme-target", nextTheme);
+
+          var label = button.querySelector(".theme-toggle__label");
+          if (label) {
+            label.textContent = nextTheme === "dark" ? "Dark Mode" : "Light Mode";
+          }
+        });
+      }
+
+      function handleToggle() {
+        var activeTheme = getActiveTheme();
+        var nextTheme = activeTheme === "dark" ? "light" : "dark";
+
+        setStoredTheme(nextTheme);
+        setThemeAttribute(nextTheme);
+        updateToggleUI();
+
+        var body = document.body;
+        if (body) {
+          body.classList.remove("theme-fade");
+          void body.offsetWidth;
+          body.classList.add("theme-fade");
+        }
+      }
+
+      setThemeAttribute(getStoredTheme());
+      toggles.forEach(function(button) {
+        button.addEventListener("click", handleToggle);
+      });
+
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener("change", function() {
+          if (!getStoredTheme() && !document.documentElement.hasAttribute("data-theme")) {
+            updateToggleUI();
+          }
+        });
+      } else if (mediaQuery.addListener) {
+        mediaQuery.addListener(function() {
+          if (!getStoredTheme() && !document.documentElement.hasAttribute("data-theme")) {
+            updateToggleUI();
+          }
+        });
+      }
+
+      updateToggleUI();
+    })();
+  </script>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      var overlay = document.querySelector("[data-search-overlay]");
+      if (!overlay) {
+        return;
+      }
+
+      var openButtons = document.querySelectorAll("[data-search-open]");
+      var closeButton = overlay.querySelector("[data-search-close]");
+      var searchPanel = overlay.querySelector(".search-panel");
+      var input = overlay.querySelector("[data-search-input]");
+      var resultsList = overlay.querySelector("[data-search-results]");
+      var emptyState = overlay.querySelector("[data-search-empty]");
+      var mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      var searchDocuments = null;
+      var currentResults = [];
+      var activeIndex = -1;
+      var lastTokens = [];
+      var assetsPromise = null;
+      var pendingQuery = "";
+
+      function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+          if (!src) {
+            reject(new Error("Missing script URL"));
+            return;
+          }
+          var script = document.createElement("script");
+          script.src = src;
+          script.defer = true;
+          script.onload = function() { resolve(); };
+          script.onerror = function() { reject(new Error("Failed to load " + src)); };
+          document.head.appendChild(script);
+        });
+      }
+
+      function ensureSearchAssets() {
+        if (window.searchIndex) {
+          return Promise.resolve();
+        }
+        if (assetsPromise) {
+          return assetsPromise;
+        }
+        var indexUrl = overlay.getAttribute("data-search-index-url");
+        var fallbackUrl = overlay.getAttribute("data-search-index-fallback-url");
+        assetsPromise = loadScript(indexUrl)
+          .catch(function() {
+            if (!fallbackUrl) {
+              throw new Error("Search index not available.");
+            }
+            return loadScript(fallbackUrl);
+          });
+        return assetsPromise;
+      }
+
+      function initDocuments() {
+        if (searchDocuments) {
+          return searchDocuments;
+        }
+        if (!window.searchIndex || !window.searchIndex.documentStore || !window.searchIndex.documentStore.docs) {
+          return null;
+        }
+        var docs = window.searchIndex.documentStore.docs;
+        searchDocuments = Object.keys(docs).map(function(key) {
+          return docs[key];
+        });
+        return searchDocuments;
+      }
+
+      function scoreCandidate(query, text) {
+        if (!text) {
+          return null;
+        }
+        var q = query.toLowerCase();
+        var t = text.toLowerCase();
+        var score = 0;
+        var firstIndex = -1;
+        var lastIndex = -1;
+        var consecutive = 0;
+        var separators = " /_-";
+
+        for (var i = 0; i < q.length; i += 1) {
+          var ch = q[i];
+          var idx = t.indexOf(ch, lastIndex + 1);
+          if (idx === -1) {
+            return null;
+          }
+          if (firstIndex === -1) {
+            firstIndex = idx;
+          }
+          if (idx === lastIndex + 1) {
+            consecutive += 1;
+            score += 10 + consecutive * 2;
+          } else {
+            consecutive = 0;
+            score += 1;
+          }
+          if (idx === 0 || separators.indexOf(t[idx - 1]) !== -1) {
+            score += 6;
+          }
+          if (lastIndex >= 0) {
+            score -= Math.min(3, idx - lastIndex - 1);
+          }
+          lastIndex = idx;
+        }
+
+        var spread = lastIndex - firstIndex + 1;
+        if (spread > q.length * 5) {
+          return null;
+        }
+
+        if (t.indexOf(q) === 0) {
+          score += 15;
+        }
+
+        score -= Math.min(8, spread * 0.02);
+        var minScore = Math.max(10, q.length * 4);
+        if (score < minScore) {
+          return null;
+        }
+        return score;
+      }
+
+      function escapeRegExp(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function scoreToken(token, text, isTitle) {
+        if (!text) {
+          return null;
+        }
+        var q = token.toLowerCase();
+        var t = text.toLowerCase();
+        var wordRegex = new RegExp("\\b" + escapeRegExp(q), "i");
+        var wordMatch = wordRegex.exec(text);
+        if (wordMatch && typeof wordMatch.index === "number") {
+          var wordBase = isTitle ? 120 : 70;
+          return wordBase - Math.min(40, wordMatch.index * 0.2) + q.length * 2;
+        }
+        var idx = t.indexOf(q);
+        if (idx !== -1) {
+          var base = isTitle ? 80 : 40;
+          return base - Math.min(30, idx * 0.15) + q.length * 1.5;
+        }
+        if (q.length <= 2) {
+          return null;
+        }
+        var fuzzy = scoreCandidate(q, text);
+        if (fuzzy === null) {
+          return null;
+        }
+        return fuzzy + (isTitle ? 20 : 0);
+      }
+
+      function fuzzyMatch(tokens, doc) {
+        if (!tokens.length) {
+          return null;
+        }
+
+        var title = doc.title || "";
+        var body = doc.body || "";
+        var totalScore = 0;
+        var titleHits = 0;
+
+        for (var i = 0; i < tokens.length; i += 1) {
+          var token = tokens[i];
+          var titleScore = scoreToken(token, title, true);
+          var bodyScore = scoreToken(token, body, false);
+          if (titleScore === null && bodyScore === null) {
+            return null;
+          }
+          var best = Math.max(titleScore || 0, bodyScore || 0);
+          if (titleScore !== null) {
+            best += 8;
+            titleHits += 1;
+          }
+          totalScore += best;
+        }
+
+        if (titleHits === tokens.length && tokens.length > 1) {
+          totalScore += 25;
+        }
+
+        return totalScore;
+      }
+
+      function clearResults() {
+        resultsList.innerHTML = "";
+        currentResults = [];
+        activeIndex = -1;
+        input.removeAttribute("aria-activedescendant");
+      }
+
+      function setEmpty(message) {
+        emptyState.textContent = message;
+        emptyState.hidden = false;
+      }
+
+      function focusInput() {
+        if (!input) {
+          return;
+        }
+        function focusNow() {
+          try {
+            input.focus({ preventScroll: true });
+          } catch (err) {
+            input.focus();
+          }
+        }
+
+        focusNow();
+        var length = input.value.length;
+        if (input.setSelectionRange) {
+          try {
+            input.setSelectionRange(length, length);
+          } catch (err) {
+            // ignore
+          }
+        }
+        requestAnimationFrame(function() {
+          if (document.activeElement !== input) {
+            focusNow();
+          }
+        });
+        setTimeout(function() {
+          if (document.activeElement !== input) {
+            focusNow();
+          }
+        }, 50);
+      }
+
+      function setActiveIndex(index) {
+        if (!currentResults.length) {
+          activeIndex = -1;
+          input.removeAttribute("aria-activedescendant");
+          return;
+        }
+        var nextIndex = index;
+        if (nextIndex < 0) {
+          nextIndex = currentResults.length - 1;
+        }
+        if (nextIndex >= currentResults.length) {
+          nextIndex = 0;
+        }
+        if (activeIndex === nextIndex) {
+          return;
+        }
+        if (activeIndex >= 0 && currentResults[activeIndex]) {
+          currentResults[activeIndex].classList.remove("is-active");
+          currentResults[activeIndex].setAttribute("aria-selected", "false");
+        }
+        activeIndex = nextIndex;
+        var activeItem = currentResults[activeIndex];
+        activeItem.classList.add("is-active");
+        activeItem.setAttribute("aria-selected", "true");
+        input.setAttribute("aria-activedescendant", activeItem.id);
+        activeItem.scrollIntoView({ block: "nearest" });
+      }
+
+      function openOverlay() {
+        overlay.hidden = false;
+        overlay.classList.add("is-open");
+        void overlay.offsetHeight;
+        document.body.classList.add("search-lock");
+        if (mobileMenuToggle) {
+          mobileMenuToggle.checked = false;
+        }
+        focusInput();
+        if (!input.value) {
+          setEmpty("Start typing to search...");
+        }
+        ensureSearchAssets().catch(function() {
+          setEmpty("Search index is not available.");
+        });
+      }
+
+      function closeOverlay() {
+        overlay.classList.remove("is-open");
+        overlay.hidden = true;
+        document.body.classList.remove("search-lock");
+        input.value = "";
+        clearResults();
+        setEmpty("Start typing to search...");
+      }
+
+      function truncate(text, maxLength) {
+        if (!text) {
+          return "";
+        }
+        if (text.length <= maxLength) {
+          return text;
+        }
+        return text.slice(0, maxLength).trim() + "...";
+      }
+
+      function stripTags(text) {
+        return text.replace(/<[^>]*>/g, "");
+      }
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function normalizeTokens(query) {
+        return query
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 8);
+      }
+
+      function highlightText(text, tokens) {
+        var safeText = escapeHtml(text || "");
+        if (!tokens.length) {
+          return safeText;
+        }
+        var pattern = tokens
+          .slice()
+          .sort(function(a, b) { return b.length - a.length; })
+          .map(escapeRegExp)
+          .join("|");
+        if (!pattern) {
+          return safeText;
+        }
+        var regex = new RegExp("(" + pattern + ")", "ig");
+        return safeText.replace(regex, "<mark>$1</mark>");
+      }
+
+      function buildSnippet(text, tokens, length) {
+        var clean = stripTags(text || "").replace(/\s+/g, " ").trim();
+        if (!clean) {
+          return "";
+        }
+        var lower = clean.toLowerCase();
+        var firstIndex = -1;
+        tokens.forEach(function(token) {
+          var idx = lower.indexOf(token.toLowerCase());
+          if (idx !== -1 && (firstIndex === -1 || idx < firstIndex)) {
+            firstIndex = idx;
+          }
+        });
+        var start = 0;
+        if (firstIndex > 0) {
+          start = Math.max(0, firstIndex - Math.floor(length / 3));
+        }
+        var end = Math.min(clean.length, start + length);
+        var snippet = clean.slice(start, end);
+        if (start > 0) {
+          snippet = "…" + snippet;
+        }
+        if (end < clean.length) {
+          snippet += "…";
+        }
+        return snippet;
+      }
+
+      function normalizeUrl(url) {
+        if (!url) {
+          return "#";
+        }
+        try {
+          var parsed = new URL(url, window.location.origin);
+          return parsed.pathname + parsed.search + parsed.hash;
+        } catch (err) {
+          return url;
+        }
+      }
+
+      function renderResults(items) {
+        clearResults();
+        items.slice(0, 10).forEach(function(doc, index) {
+          if (!doc) {
+            return;
+          }
+
+          var title = doc.title || doc.id || "";
+          var url = doc.id || "";
+          var summarySource = doc.body || "";
+          var summary = buildSnippet(summarySource, lastTokens, 180);
+
+          var listItem = document.createElement("li");
+          listItem.className = "search-result";
+          listItem.id = "search-result-" + index;
+          listItem.setAttribute("role", "option");
+          listItem.setAttribute("aria-selected", "false");
+          listItem.dataset.index = String(index);
+
+          var link = document.createElement("a");
+          link.href = normalizeUrl(url);
+          link.innerHTML = highlightText(title || url, lastTokens);
+          listItem.appendChild(link);
+
+          if (summary) {
+            var meta = document.createElement("p");
+            meta.innerHTML = highlightText(summary, lastTokens);
+            listItem.appendChild(meta);
+          }
+
+          resultsList.appendChild(listItem);
+          currentResults.push(listItem);
+        });
+        if (currentResults.length) {
+          setActiveIndex(0);
+        }
+      }
+
+      function runSearch(query) {
+        var docs = initDocuments();
+        if (!docs) {
+          clearResults();
+          setEmpty("Search index is not available.");
+          return;
+        }
+
+        var scored = docs
+          .map(function(doc) {
+            if (!doc || !doc.body || !doc.body.trim()) {
+              return null;
+            }
+            return {
+              doc: doc,
+              score: fuzzyMatch(lastTokens, doc)
+            };
+          })
+          .filter(function(item) {
+            return item && item.score !== null;
+          });
+
+        if (!scored.length) {
+          clearResults();
+          setEmpty("No results found.");
+          return;
+        }
+
+        scored.sort(function(a, b) {
+          return b.score - a.score;
+        });
+
+        var topScore = scored[0].score;
+        var cutoff = Math.max(25, topScore * 0.4);
+        var results = scored.filter(function(item) {
+          return item.score >= cutoff;
+        }).map(function(item) {
+          return item.doc;
+        });
+
+        if (!results.length) {
+          clearResults();
+          setEmpty("No results found.");
+          return;
+        }
+
+        emptyState.hidden = true;
+        renderResults(results);
+      }
+
+      function performSearch(query) {
+        var trimmed = query.trim();
+        lastTokens = normalizeTokens(trimmed);
+        pendingQuery = trimmed;
+
+        if (!trimmed) {
+          clearResults();
+          setEmpty("Start typing to search...");
+          return;
+        }
+
+        if (trimmed.length < 2 || lastTokens.length === 0) {
+          clearResults();
+          setEmpty("Type at least 2 characters to search...");
+          return;
+        }
+
+        setEmpty("Loading search index...");
+        ensureSearchAssets()
+          .then(function() {
+            runSearch(pendingQuery);
+          })
+          .catch(function() {
+            clearResults();
+            setEmpty("Search index is not available.");
+          });
+      }
+
+      openButtons.forEach(function(button) {
+        button.addEventListener("click", openOverlay);
+      });
+
+      closeButton.addEventListener("click", closeOverlay);
+
+      if (searchPanel) {
+        searchPanel.addEventListener("click", function(event) {
+          if (event.target.closest("a, button, input")) {
+            return;
+          }
+          focusInput();
+        });
+      }
+
+      resultsList.addEventListener("mouseover", function(event) {
+        var item = event.target.closest(".search-result");
+        if (!item) {
+          return;
+        }
+        var index = Number(item.dataset.index);
+        if (!Number.isNaN(index)) {
+          setActiveIndex(index);
+        }
+      });
+
+      overlay.addEventListener("click", function(event) {
+        if (event.target === overlay) {
+          closeOverlay();
+        }
+      });
+
+      function isPrintableKey(event) {
+        return event.key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey;
+      }
+
+      document.addEventListener("keydown", function(event) {
+        if (overlay.hidden) {
+          return;
+        }
+        if (event.key === "Escape") {
+          closeOverlay();
+          return;
+        }
+        if (document.activeElement !== input && isPrintableKey(event)) {
+          event.preventDefault();
+          focusInput();
+          input.value += event.key;
+          performSearch(input.value);
+        }
+      });
+
+      input.addEventListener("input", function() {
+        performSearch(input.value);
+      });
+
+      input.addEventListener("keydown", function(event) {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          setActiveIndex(activeIndex + 1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          setActiveIndex(activeIndex - 1);
+        } else if (event.key === "Enter") {
+          if (!currentResults.length) {
+            return;
+          }
+          event.preventDefault();
+          if (activeIndex < 0) {
+            setActiveIndex(0);
+          }
+          var activeItem = currentResults[activeIndex];
+          if (activeItem) {
+            var link = activeItem.querySelector("a");
+            if (link) {
+              link.click();
+            }
+          }
+        }
+      });
+    });
+  </script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "63d568ab4f0b4139bbb58eaff605d429"}'></script>
