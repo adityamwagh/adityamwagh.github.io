@@ -1124,3 +1124,24 @@ a:hover {
     background-color: rgba(251, 230, 162, 0.85);
     color: #111;
 }
+
+/* The search input does not pick up --pagefind-ui-text reliably; set it. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) #pagefind-search .pagefind-ui__search-input {
+        color: #e2e2e2;
+        background-color: #1d1d1d;
+    }
+
+    :root:not([data-theme="light"]) #pagefind-search .pagefind-ui__search-input::placeholder {
+        color: rgba(226, 226, 226, 0.5);
+    }
+}
+
+:root[data-theme="dark"] #pagefind-search .pagefind-ui__search-input {
+    color: #e2e2e2;
+    background-color: #1d1d1d;
+}
+
+:root[data-theme="dark"] #pagefind-search .pagefind-ui__search-input::placeholder {
+    color: rgba(226, 226, 226, 0.5);
+}
