@@ -97,6 +97,15 @@
             </span>
             <span class="nav-link__label">Home</span>
           </a>
+          <a class="nav-link" href="{{ get_url(path='work') }}">
+            <span class="nav-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+              </svg>
+            </span>
+            <span class="nav-link__label">Work</span>
+          </a>
           <a class="nav-link" href="{{ get_url(path='blog') }}">
             <span class="nav-link__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
@@ -119,18 +128,37 @@
               </span>
               <span class="search-toggle__label">Search</span>
             </button>
-            <button class="theme-toggle" type="button" data-theme-toggle data-theme-target="dark" aria-pressed="false">
-              <span class="theme-toggle__icon" aria-hidden="true">
-                <svg class="theme-toggle__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <svg class="theme-toggle__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                  <circle cx="12" cy="12" r="3.5"></circle>
-                  <path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path>
-                </svg>
-              </span>
-              <span class="theme-toggle__label">Dark Mode</span>
-            </button>
+            <div class="theme-menu" data-theme-menu>
+              <button class="theme-menu__button" type="button" data-theme-menu-button data-theme-mode="system" aria-haspopup="true" aria-expanded="false" aria-label="Theme">
+                <span class="theme-menu__icon" aria-hidden="true">
+                  <svg class="theme-menu__icon--system" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+                  <svg class="theme-menu__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>
+                  <svg class="theme-menu__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </span>
+                <span class="theme-menu__label">Theme</span>
+                <svg class="theme-menu__caret" viewBox="0 0 24 24" width="0.85em" height="0.85em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <ul class="theme-menu__list" role="menu" aria-label="Theme">
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="system" role="menuitemradio" aria-checked="true">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></span>
+                    <span class="theme-menu__option-label">System</span>
+                  </button>
+                </li>
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="light" role="menuitemradio" aria-checked="false">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg></span>
+                    <span class="theme-menu__option-label">Light</span>
+                  </button>
+                </li>
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="dark" role="menuitemradio" aria-checked="false">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="theme-menu__option-label">Dark</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -153,6 +181,15 @@
               </span>
               <span class="nav-link__label">Home</span>
             </a>
+            <a class="nav-link" href="{{ get_url(path='work') }}">
+              <span class="nav-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+                </svg>
+              </span>
+              <span class="nav-link__label">Work</span>
+            </a>
             <a class="nav-link" href="{{ get_url(path='blog') }}">
               <span class="nav-link__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
@@ -174,18 +211,37 @@
               </span>
               <span class="search-toggle__label">Search</span>
             </button>
-            <button class="theme-toggle" type="button" data-theme-toggle data-theme-target="dark" aria-pressed="false">
-              <span class="theme-toggle__icon" aria-hidden="true">
-                <svg class="theme-toggle__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <svg class="theme-toggle__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                  <circle cx="12" cy="12" r="3.5"></circle>
-                  <path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path>
-                </svg>
-              </span>
-              <span class="theme-toggle__label">Dark Mode</span>
-            </button>
+            <div class="theme-menu" data-theme-menu>
+              <button class="theme-menu__button" type="button" data-theme-menu-button data-theme-mode="system" aria-haspopup="true" aria-expanded="false" aria-label="Theme">
+                <span class="theme-menu__icon" aria-hidden="true">
+                  <svg class="theme-menu__icon--system" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+                  <svg class="theme-menu__icon--sun" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>
+                  <svg class="theme-menu__icon--moon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </span>
+                <span class="theme-menu__label">Theme</span>
+                <svg class="theme-menu__caret" viewBox="0 0 24 24" width="0.85em" height="0.85em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <ul class="theme-menu__list" role="menu" aria-label="Theme">
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="system" role="menuitemradio" aria-checked="true">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></span>
+                    <span class="theme-menu__option-label">System</span>
+                  </button>
+                </li>
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="light" role="menuitemradio" aria-checked="false">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg></span>
+                    <span class="theme-menu__option-label">Light</span>
+                  </button>
+                </li>
+                <li role="none">
+                  <button class="theme-menu__option" type="button" data-theme-option="dark" role="menuitemradio" aria-checked="false">
+                    <span class="theme-menu__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="theme-menu__option-label">Dark</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>
@@ -237,72 +293,77 @@
   <script>
     (function() {
       var storageKey = "theme";
-      var toggles = document.querySelectorAll("[data-theme-toggle]");
-      if (!toggles.length) {
+      // Default for every new visitor is "system" (follow the OS).
+      var modes = ["system", "light", "dark"];
+      var menus = document.querySelectorAll("[data-theme-menu]");
+      var buttons = document.querySelectorAll("[data-theme-menu-button]");
+      var options = document.querySelectorAll("[data-theme-option]");
+      if (!options.length) {
         return;
       }
 
-      var mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-      function getStoredTheme() {
+      function getStoredMode() {
         try {
           var value = localStorage.getItem(storageKey);
-          return value === "light" || value === "dark" ? value : null;
+          return modes.indexOf(value) !== -1 ? value : "system";
         } catch (err) {
-          return null;
+          return "system";
         }
       }
 
-      function setStoredTheme(theme) {
+      function setStoredMode(mode) {
         try {
-          localStorage.setItem(storageKey, theme);
+          if (mode === "system") {
+            localStorage.removeItem(storageKey);
+          } else {
+            localStorage.setItem(storageKey, mode);
+          }
         } catch (err) {
           // ignore
         }
       }
 
-      function setThemeAttribute(theme) {
-        if (theme === "light" || theme === "dark") {
-          document.documentElement.setAttribute("data-theme", theme);
+      // System mode = no attribute, so the prefers-color-scheme CSS rules apply.
+      function applyMode(mode) {
+        if (mode === "light" || mode === "dark") {
+          document.documentElement.setAttribute("data-theme", mode);
         } else {
           document.documentElement.removeAttribute("data-theme");
         }
       }
 
-      function getActiveTheme() {
-        var stored = getStoredTheme();
-        if (stored) {
-          return stored;
-        }
-        var attrTheme = document.documentElement.getAttribute("data-theme");
-        if (attrTheme === "light" || attrTheme === "dark") {
-          return attrTheme;
-        }
-        return mediaQuery.matches ? "dark" : "light";
-      }
-
-      function updateToggleUI() {
-        var activeTheme = getActiveTheme();
-        var nextTheme = activeTheme === "dark" ? "light" : "dark";
-
-        toggles.forEach(function(button) {
-          button.setAttribute("aria-pressed", activeTheme === "dark" ? "true" : "false");
-          button.setAttribute("data-theme-target", nextTheme);
-
-          var label = button.querySelector(".theme-toggle__label");
-          if (label) {
-            label.textContent = nextTheme === "dark" ? "Dark Mode" : "Light Mode";
-          }
+      function updateUI(mode) {
+        options.forEach(function(option) {
+          var selected = option.getAttribute("data-theme-option") === mode;
+          option.setAttribute("aria-checked", selected ? "true" : "false");
+        });
+        buttons.forEach(function(button) {
+          button.setAttribute("data-theme-mode", mode);
         });
       }
 
-      function handleToggle() {
-        var activeTheme = getActiveTheme();
-        var nextTheme = activeTheme === "dark" ? "light" : "dark";
+      function closeMenus() {
+        menus.forEach(function(menu) {
+          var button = menu.querySelector("[data-theme-menu-button]");
+          menu.classList.remove("is-open");
+          if (button) { button.setAttribute("aria-expanded", "false"); }
+        });
+      }
 
-        setStoredTheme(nextTheme);
-        setThemeAttribute(nextTheme);
-        updateToggleUI();
+      function toggleMenu(menu) {
+        var button = menu.querySelector("[data-theme-menu-button]");
+        var willOpen = button.getAttribute("aria-expanded") !== "true";
+        closeMenus();
+        if (willOpen) {
+          menu.classList.add("is-open");
+          button.setAttribute("aria-expanded", "true");
+        }
+      }
+
+      function setMode(mode) {
+        setStoredMode(mode);
+        applyMode(mode);
+        updateUI(mode);
 
         var body = document.body;
         if (body) {
@@ -312,26 +373,30 @@
         }
       }
 
-      setThemeAttribute(getStoredTheme());
-      toggles.forEach(function(button) {
-        button.addEventListener("click", handleToggle);
+      applyMode(getStoredMode());
+      updateUI(getStoredMode());
+
+      buttons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+          event.stopPropagation();
+          toggleMenu(button.closest("[data-theme-menu]"));
+        });
       });
 
-      if (mediaQuery.addEventListener) {
-        mediaQuery.addEventListener("change", function() {
-          if (!getStoredTheme() && !document.documentElement.hasAttribute("data-theme")) {
-            updateToggleUI();
-          }
+      options.forEach(function(option) {
+        option.addEventListener("click", function(event) {
+          event.stopPropagation();
+          setMode(option.getAttribute("data-theme-option"));
+          closeMenus();
         });
-      } else if (mediaQuery.addListener) {
-        mediaQuery.addListener(function() {
-          if (!getStoredTheme() && !document.documentElement.hasAttribute("data-theme")) {
-            updateToggleUI();
-          }
-        });
-      }
+      });
 
-      updateToggleUI();
+      document.addEventListener("click", closeMenus);
+      document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+          closeMenus();
+        }
+      });
     })();
   </script>
 
