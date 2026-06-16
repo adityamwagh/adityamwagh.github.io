@@ -1075,9 +1075,11 @@ a:hover {
     }
 }
 
-/* ---- Pagefind search UI theming (match site + dark mode) ---------------- */
-#pagefind-search {
-    --pagefind-ui-scale: 0.9;
+/* ---- Pagefind search UI theming (match site + dark mode) ----------------
+   Pagefind sets these custom properties on .pagefind-ui itself, so we must
+   override on that element (higher specificity), not just the parent. */
+#pagefind-search .pagefind-ui {
+    --pagefind-ui-scale: 0.85;
     --pagefind-ui-font: et-book, Palatino, "Palatino Linotype", Georgia, serif;
     --pagefind-ui-primary: #111;
     --pagefind-ui-text: #111;
@@ -1088,20 +1090,37 @@ a:hover {
     --pagefind-ui-border-radius: 6px;
 }
 
+/* Search-term highlight, toned to match the site */
+#pagefind-search .pagefind-ui mark {
+    background-color: #fbe6a2;
+    color: #111;
+    padding: 0 0.1em;
+}
+
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) #pagefind-search {
-        --pagefind-ui-primary: #eaeaea;
-        --pagefind-ui-text: #ddd;
-        --pagefind-ui-background: #151515;
-        --pagefind-ui-border: rgba(255, 255, 255, 0.2);
+    :root:not([data-theme="light"]) #pagefind-search .pagefind-ui {
+        --pagefind-ui-primary: #f0f0f0;
+        --pagefind-ui-text: #e2e2e2;
+        --pagefind-ui-background: #1d1d1d;
+        --pagefind-ui-border: rgba(255, 255, 255, 0.18);
         --pagefind-ui-tag: #2a2a2a;
+    }
+
+    :root:not([data-theme="light"]) #pagefind-search .pagefind-ui mark {
+        background-color: rgba(251, 230, 162, 0.85);
+        color: #111;
     }
 }
 
-:root[data-theme="dark"] #pagefind-search {
-    --pagefind-ui-primary: #eaeaea;
-    --pagefind-ui-text: #ddd;
-    --pagefind-ui-background: #151515;
-    --pagefind-ui-border: rgba(255, 255, 255, 0.2);
+:root[data-theme="dark"] #pagefind-search .pagefind-ui {
+    --pagefind-ui-primary: #f0f0f0;
+    --pagefind-ui-text: #e2e2e2;
+    --pagefind-ui-background: #1d1d1d;
+    --pagefind-ui-border: rgba(255, 255, 255, 0.18);
     --pagefind-ui-tag: #2a2a2a;
+}
+
+:root[data-theme="dark"] #pagefind-search .pagefind-ui mark {
+    background-color: rgba(251, 230, 162, 0.85);
+    color: #111;
 }
