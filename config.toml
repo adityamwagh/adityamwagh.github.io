@@ -3,7 +3,7 @@
 
 base_url = "https://adityamwagh.github.io"
 title = "Aditya Wagh"
-description = "Aditya Wagh — Research Engineer blending robotics and machine learning to build intelligent systems."
+description = "Aditya Wagh — Research Engineer working on world models and spatial intelligence for embodied AI: computer vision and learning systems for self-driving and autonomous robots."
 author = "Aditya Wagh"
 
 # Compilation settings
@@ -24,8 +24,12 @@ feed_filenames = ["feed.xml"]
 
 # Markdown settings
 [markdown]
-highlight_code = true
-highlight_theme = "css"
+
+[markdown.highlighting]
+# Emit CSS classes (.z-*); colours come from sass/_syntax_highlighting.scss (Everforest).
+# A theme name is required by Zola even in class mode; its colours are unused.
+style = "class"
+theme = "everforest-dark"
 
 # Extra variables accessible in templates
 [extra]
