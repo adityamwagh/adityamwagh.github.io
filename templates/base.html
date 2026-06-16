@@ -73,8 +73,8 @@
   <!-- Pagefind search UI (assets generated at build time under /pagefind/) -->
   <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+  <!-- Main CSS (cachebust: content hash in URL so CDN/edge never serves stale CSS) -->
+  <link rel="stylesheet" href="{{ get_url(path='style.css', cachebust=true) }}">
 
   <!-- Canonical and RSS -->
   <link rel="canonical" href="{% if current_url %}{{ current_url }}{% else %}{{ config.base_url }}{% endif %}">
