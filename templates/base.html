@@ -41,7 +41,7 @@
   <meta name="twitter:image" content="{{ get_url(path='images/profile.webp', absolute=true) }}">
   <meta name="twitter:site" content="@{{ config.extra.social.twitter }}">
 
-  <script>
+  <script data-cfasync="false">
     (function() {
       try {
         var storedTheme = localStorage.getItem("theme");
@@ -282,7 +282,7 @@
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false">
     (function() {
       var storageKey = "theme";
       // Default for every new visitor is "system" (follow the OS).
@@ -392,8 +392,8 @@
     })();
   </script>
 
-  <script src="/pagefind/pagefind-ui.js"></script>
-  <script>
+  <script src="/pagefind/pagefind-ui.js" data-cfasync="false"></script>
+  <script data-cfasync="false">
     window.addEventListener("DOMContentLoaded", function() {
       var overlay = document.querySelector("[data-search-overlay]");
       if (!overlay) {
