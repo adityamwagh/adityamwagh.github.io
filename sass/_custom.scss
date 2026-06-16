@@ -1074,3 +1074,34 @@ a:hover {
         transition: none !important;
     }
 }
+
+/* ---- Pagefind search UI theming (match site + dark mode) ---------------- */
+#pagefind-search {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-font: et-book, Palatino, "Palatino Linotype", Georgia, serif;
+    --pagefind-ui-primary: #111;
+    --pagefind-ui-text: #111;
+    --pagefind-ui-background: #fffff8;
+    --pagefind-ui-border: rgba(0, 0, 0, 0.18);
+    --pagefind-ui-tag: #efe9d6;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) #pagefind-search {
+        --pagefind-ui-primary: #eaeaea;
+        --pagefind-ui-text: #ddd;
+        --pagefind-ui-background: #151515;
+        --pagefind-ui-border: rgba(255, 255, 255, 0.2);
+        --pagefind-ui-tag: #2a2a2a;
+    }
+}
+
+:root[data-theme="dark"] #pagefind-search {
+    --pagefind-ui-primary: #eaeaea;
+    --pagefind-ui-text: #ddd;
+    --pagefind-ui-background: #151515;
+    --pagefind-ui-border: rgba(255, 255, 255, 0.2);
+    --pagefind-ui-tag: #2a2a2a;
+}

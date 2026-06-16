@@ -45,6 +45,11 @@ jobs:
         # (Cloudflare proxies the domain), which caused mixed-content URLs.
         run: zola build
 
+      - name: Build Pagefind search index
+        # Indexes the rendered HTML in ./public and writes ./public/pagefind/.
+        # (Requires minify_html=false in config so Pagefind can parse <html lang>.)
+        run: npx -y pagefind@latest --site public
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
