@@ -40,7 +40,10 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Zola
-        run: zola build --base-url "${{ steps.pages.outputs.base_url }}"
+        # Use the https base_url from config.toml (https://adityamwagh.me).
+        # The Pages output is http while "Enforce HTTPS" is unavailable
+        # (Cloudflare proxies the domain), which caused mixed-content URLs.
+        run: zola build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,7 +1,7 @@
 # Zola configuration
 # Documentation: https://www.getzola.org/documentation/getting-started/configuration/
 
-base_url = "https://adityamwagh.github.io"
+base_url = "https://adityamwagh.me"
 title = "Aditya Wagh"
 description = "Aditya Wagh — Research Engineer working on world models and spatial intelligence for embodied AI: computer vision and learning systems for self-driving and autonomous robots."
 author = "Aditya Wagh"
