@@ -31,7 +31,9 @@ jobs:
       - name: Install Zola
         uses: taiki-e/install-action@v2
         with:
-          tool: zola@0.19.2
+          # Floating: installs the latest Zola release each run.
+          # Pin to a version (e.g. zola@0.22.1) if a future release breaks the build.
+          tool: zola
 
       - name: Setup Pages
         id: pages
