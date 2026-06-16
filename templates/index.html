@@ -37,35 +37,33 @@
 
   <h1>Hi, I'm {{ config.extra.firstname }} {{ config.extra.secondname }}</h1>
 
-  <p>I'm a Research Engineer working on robot learning, with a focus on world models, vision-language-action (VLA)
-    systems, and imitation learning.</p>
-
-  <p>My work sits at the intersection of machine learning, 3D computer vision, and robotics, and centers on building
-    learning-based systems that connect perception, internal representations, and action in the real world.</p>
-
-  <p>I'm extremely grateful to be educated at two great institutions: <a href="https://en.wikipedia.org/wiki/New_York_University">NYU</a> and <a
+  <p>I'm a Research Engineer on the Robot Learning team at <a href="https://neuracore.com">Neuracore</a>, founded by <a
+      href="https://stepjam.github.io/">Stephen James</a>, where I build physical-AI infrastructure for robot learning.
+    I'm extremely grateful to be educated at two great institutions: <a
+      href="https://en.wikipedia.org/wiki/New_York_University">NYU</a> and <a
       href="https://en.wikipedia.org/wiki/BITS_Pilani">BITS Pilani</a>.</p>
 
-  <p>At the heart of my work is a simple belief: technology should amplify human potential, reduce barriers to
-    exploration, and meaningfully enrich the human experience. I'm interested in building systems that don't just exist
-    in the world, but help us better navigate it, create within it, and understand our place within it. Robotics is my
-    primary lens for exploring these ideas, because it forces intelligence to engage directly with reality.</p>
+  <p>My interests sit at the intersection of computer vision, robot learning, and world models — building systems that
+    perceive, model, and act in the dynamic, unstructured 3D environments that self-driving vehicles and mobile robots
+    operate in.</p>
 
-  <p>Alongside robotics, I'm excited by adjacent directions such as coding agents and AR/XR. To me, these are different
-    expressions of the same underlying question — how intelligent systems can work with humans to extend creativity,
-    reasoning, and interaction, rather than replace them.</p>
+  <p>Earlier, I researched 3D computer vision and deep learning at NYU's <a href="https://ai4ce.github.io/">AI4CE lab</a>
+    under Professor <a href="https://scholar.google.com/citations?hl=en&amp;user=YeG8ZM0AAAAJ">Chen Feng</a>, and I've
+    built open-source systems across 3D perception — from visual SLAM and deep image matching to LiDAR 3D detection and
+    state estimation — see my <a href="{{ get_url(path='work') }}">work</a>.</p>
 
-  <p>Beyond my core work, I enjoy reading about programming languages, systems programming, performance engineering, and
-    machine learning systems. I'm also drawn to topics like public policy, city planning, history, and psychology,
-    especially where they intersect with how technology shapes human institutions and everyday life.</p>
+  <p>I'm always open to research collaborations and roles at the frontier of world models, computer vision, and
+    autonomy.</p>
 
-  <p>This site is a space to share what I'm building, learning, and thinking about over time.</p>
+  <p>Beyond my core work, I'm drawn to coding agents and AR/XR — different takes on the same question of how intelligent
+    systems can extend human creativity and reasoning rather than replace it. Outside work, I read about programming
+    languages, systems and performance engineering, ML systems, and topics like public policy, city planning, history,
+    and psychology.</p>
 
-  <p>If you're into any of these areas, let's connect! Feel free to reach out to me via: <a
-      href="https://www.linkedin.com/in/{{ config.extra.social.linkedin }}">LinkedIn</a>, <a
-      href="mailto:{{ config.extra.general_email }}">Email</a> or <a
-      href="https://twitter.com/{{ config.extra.social.twitter }}">X/Twitter (Open DMs)</a> to collaborate and have fun
-    working together!</p>
+  <p>If any of this resonates, let's connect — reach me on <a
+      href="https://www.linkedin.com/in/{{ config.extra.social.linkedin }}">LinkedIn</a>, by <a
+      href="mailto:{{ config.extra.general_email }}">email</a>, or on <a
+      href="https://twitter.com/{{ config.extra.social.twitter }}">X/Twitter</a> (open DMs).</p>
 </section>
 
 <!-- Tech Stack Section -->
@@ -105,44 +103,4 @@
   </div>
 </section>
 
-<!-- Projects Section -->
-<section class="animate__animated animate__fadeIn">
-  <h2 id="projects">Projects</h2>
-  <p>Below is a list of my notable projects. Feel free to have a look at whatever you find interesting!</p>
-
-  <div class="project">
-    <img src="{{ get_url(path='images/room.png') }}" alt="SuperSLAM" class="project-image">
-    <h3>SuperSLAM</h3>
-    <p>SuperSLAM: Open Source Framework for Deep Learning based Visual SLAM</p>
-    <p><a href="https://github.com/adityamwagh/SuperSLAM" target="_blank">View Code</a></p>
-  </div>
-
-  <div class="project">
-    <img src="{{ get_url(path='images/loftr-arch.png') }}" alt="Deep Image Matching" class="project-image">
-    <h3>Deep Image Matching using Local Feature Transformer</h3>
-    <p>Pose estimation pipeline to enable 3D reconstruction using Local Feature Transformer (LoFTR)</p>
-    <p><a href="https://github.com/adityamwagh/DeepIM" target="_blank">View Code</a></p>
-  </div>
-
-  <div class="project">
-    <img src="{{ get_url(path='images/sensor-fusion.jpg') }}" alt="State Estimation" class="project-image">
-    <h3>State Estimation of a Drone by Visual-Inertial Sensor Fusion</h3>
-    <p>Optimal state estimation using extended & unscented kalman filter implemented using MATLAB</p>
-    <p><a href="https://github.com/adityamwagh/state-estimation" target="_blank">View Code</a></p>
-  </div>
-
-  <div class="project">
-    <img src="{{ get_url(path='images/fast3d.png') }}" alt="3D Object Detection" class="project-image">
-    <h3>3D Object Detection in LiDAR Point Clouds</h3>
-    <p>Benchmarking of LiDAR 3D Object Detection networks (VoxelNet, PointNet++, PointPillars) on KITTI Dataset.</p>
-    <p><a href="https://github.com/adityamwagh/fast3d" target="_blank">View Code</a></p>
-  </div>
-
-  <div class="project">
-    <img src="{{ get_url(path='images/ransac-plane.jpg') }}" alt="Fast Plane Extraction" class="project-image">
-    <h3>Fast Plane Extraction from a 3D Point Cloud</h3>
-    <p>Fast, Parallel implementation of the RANSAC algorithm to segment a plane in a point cloud.</p>
-    <p><a href="https://github.com/adityamwagh/ransac-pcl" target="_blank">View Code</a></p>
-  </div>
-</section>
 {% endblock content %}
