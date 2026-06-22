@@ -20,7 +20,7 @@ const fmt = (d: Date) =>
     {posts.map((p) => (
       <li class="py-6">
         <a href={`/blog/${p.id}/`} class="group block">
-          <h3 class="mb-1 transition-opacity group-hover:opacity-80">{p.data.title}</h3>
+          <h2 class="title-md mb-1 transition-opacity group-hover:opacity-80">{p.data.title}</h2>
         </a>
         <p class="text-base mb-2" style="color: var(--color-muted)">
           <time datetime={p.data.date.toISOString().slice(0, 10)}>{fmt(p.data.date)}</time>

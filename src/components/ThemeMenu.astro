@@ -64,75 +64,75 @@ const options = [
     else document.documentElement.removeAttribute("data-theme");
   }
 
-  function init() {
-    const menus = document.querySelectorAll<HTMLElement>("[data-theme-menu]");
-    if (!menus.length) return;
-
-    function closeAll() {
-      menus.forEach((menu) => {
-        const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
-        menu.querySelector(".theme-menu__list")?.classList.remove("is-open");
-        btn?.setAttribute("aria-expanded", "false");
-      });
-    }
-    function updateUI(mode: string) {
-      document.querySelectorAll<HTMLElement>("[data-theme-option]").forEach((opt) => {
-        opt.setAttribute("aria-checked", opt.getAttribute("data-theme-option") === mode ? "true" : "false");
-      });
-      menus.forEach((menu) => {
-        const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
-        if (btn) {
-          btn.setAttribute("data-theme-mode", mode);
-          const icon = btn.querySelector("[data-theme-icon]");
-          if (icon) icon.innerHTML = ICONS[mode];
-        }
-      });
-    }
-    function setMode(mode: string) {
-      setStoredMode(mode);
-      applyMode(mode);
-      updateUI(mode);
-    }
-
+  function closeAll() {
+    document.querySelectorAll(".theme-menu__list").forEach((l) => l.classList.remove("is-open"));
+    document.querySelectorAll("[data-theme-menu-button]").forEach((b) => b.setAttribute("aria-expanded", "false"));
+  }
+  function updateUI(mode: string) {
+    document.querySelectorAll<HTMLElement>("[data-theme-option]").forEach((opt) => {
+      opt.setAttribute("aria-checked", opt.getAttribute("data-theme-option") === mode ? "true" : "false");
+    });
+    document.querySelectorAll<HTMLElement>("[data-theme-menu-button]").forEach((btn) => {
+      btn.setAttribute("data-theme-mode", mode);
+      const icon = btn.querySelector("[data-theme-icon]");
+      if (icon) icon.innerHTML = ICONS[mode];
+    });
+  }
+  function setMode(mode: string) {
+    setStoredMode(mode);
+    applyMode(mode);
+    updateUI(mode);
+  }
+  // Re-sync the controls to the stored mode after every (re)render — the DOM is
+  // swapped on View-Transition navigation, so the new buttons need their icons
+  // and checked-states reapplied.
+  function syncTheme() {
     const current = getStoredMode();
     applyMode(current);
     updateUI(current);
+  }
 
-    menus.forEach((menu) => {
-      const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
-      const list = menu.querySelector<HTMLElement>(".theme-menu__list");
-      btn?.addEventListener("click", (e) => {
+  // Delegated on `document`, bound exactly once. Inline scripts re-run on Astro
+  // View-Transition navigation; per-element binding would stack duplicate
+  // listeners. Each button finds its own dropdown via its parent `.theme-menu`,
+  // so both the desktop and mobile-menu instances work from one handler.
+  function bindThemeMenu() {
+    if ((window as any).__themeMenuBound) return;
+    (window as any).__themeMenuBound = true;
+
+    document.addEventListener("click", (e) => {
+      const target = e.target as Element | null;
+      const opt = target?.closest?.("[data-theme-option]");
+      if (opt) {
+        e.stopPropagation();
+        setMode(opt.getAttribute("data-theme-option") || "system");
+        closeAll();
+        return;
+      }
+      const btn = target?.closest?.("[data-theme-menu-button]") as HTMLElement | null;
+      if (btn) {
         e.stopPropagation();
         const willOpen = btn.getAttribute("aria-expanded") !== "true";
         closeAll();
         if (willOpen) {
-          list?.classList.add("is-open");
+          btn.parentElement?.querySelector(".theme-menu__list")?.classList.add("is-open");
           btn.setAttribute("aria-expanded", "true");
         }
-      });
-      menu.querySelectorAll<HTMLElement>("[data-theme-option]").forEach((opt) => {
-        opt.addEventListener("click", (e) => {
-          e.stopPropagation();
-          setMode(opt.getAttribute("data-theme-option") || "system");
-          closeAll();
-        });
-      });
+        return;
+      }
+      // Click anywhere else dismisses any open dropdown.
+      closeAll();
     });
 
-    if (!(window as any).__themeMenuGlobalBound) {
-      (window as any).__themeMenuGlobalBound = true;
-      const closeAllLists = () => {
-        document.querySelectorAll(".theme-menu__list").forEach((l) => l.classList.remove("is-open"));
-        document.querySelectorAll("[data-theme-menu-button]").forEach((b) => b.setAttribute("aria-expanded", "false"));
-      };
-      document.addEventListener("click", closeAllLists);
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeAllLists();
-      });
-    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll();
+    });
   }
 
-  document.addEventListener("astro:page-load", init);
+  syncTheme();
+  bindThemeMenu();
+  document.addEventListener("astro:page-load", syncTheme);
+  document.addEventListener("astro:page-load", bindThemeMenu);
 </script>
 
 <style>

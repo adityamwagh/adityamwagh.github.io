@@ -113,41 +113,42 @@ function isActive(href: string) {
 </style>
 
 <script>
-  function init() {
-    const toggle = document.querySelector<HTMLElement>("[data-menu-toggle]");
-    const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
-    if (!toggle || !menu) return;
+  // Delegated on `document` and bound exactly once, so it keeps working no
+  // matter how the page is reached. Astro's View-Transition router re-runs
+  // inline component scripts on client navigation; binding per-element inside
+  // `astro:page-load` (the old approach) stacked a fresh click listener each
+  // navigation, and an even number of them cancelled out — the tap opened then
+  // immediately closed the menu, reading as "the hamburger doesn't work".
+  function bindMobileMenu() {
+    if ((window as any).__mobileMenuBound) return;
+    (window as any).__mobileMenuBound = true;
 
     const setOpen = (open: boolean) => {
+      const toggle = document.querySelector<HTMLElement>("[data-menu-toggle]");
+      const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+      if (!toggle || !menu) return;
       menu.classList.toggle("is-open", open);
       toggle.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
     };
 
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      setOpen(!toggle.classList.contains("is-open"));
+    document.addEventListener("click", (e) => {
+      const target = e.target as Element | null;
+      const toggle = target?.closest?.("[data-menu-toggle]");
+      if (toggle) {
+        e.stopPropagation();
+        setOpen(!toggle.classList.contains("is-open"));
+        return;
+      }
+      // Links + search inside the overlay close it; theme controls do NOT.
+      if (target?.closest?.("[data-mobile-menu] [data-menu-link]")) setOpen(false);
     });
 
-    // Links + search close the menu; theme controls do NOT.
-    menu.querySelectorAll<HTMLElement>("[data-menu-link]").forEach((el) =>
-      el.addEventListener("click", () => setOpen(false)),
-    );
-
-    if (!(window as any).__mobileMenuEscBound) {
-      (window as any).__mobileMenuEscBound = true;
-      document.addEventListener("keydown", (e) => {
-        if (e.key !== "Escape") return;
-        const t = document.querySelector<HTMLElement>("[data-menu-toggle].is-open");
-        const m = document.querySelector<HTMLElement>("[data-mobile-menu].is-open");
-        if (!t && !m) return;
-        m?.classList.remove("is-open");
-        t?.classList.remove("is-open");
-        t?.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      });
-    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && document.querySelector("[data-mobile-menu].is-open")) setOpen(false);
+    });
   }
-  document.addEventListener("astro:page-load", init);
+  bindMobileMenu();
+  document.addEventListener("astro:page-load", bindMobileMenu);
 </script>
