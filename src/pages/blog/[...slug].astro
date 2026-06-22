@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection, render } from "astro:content";
+import "katex/dist/katex.min.css";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data.date.toLocaleDateString("en-US", {
+  year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+});
+---
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  datePublished={post.data.date.toISOString()}
+  dateModified={post.data.date.toISOString()}
+  keywords={post.data.tags}
+>
+  <h1>{post.data.title}</h1>
+  <p class="mb-8 mt-2" style="color: var(--color-muted)">{d} · {post.data.author}</p>
+  <div class="post-content">
+    <Content />
+  </div>
+</Base>
+
+<style is:global>
+  /* Prose styling scoped to rendered Markdown */
+  .post-content { line-height: 1.75; }
+  .post-content > * + * { margin-top: 1.1rem; }
+  /* Sizes come from the global type scale; only spacing is set here. */
+  .post-content h2 { margin-top: 2.5rem; }
+  .post-content h3 { margin-top: 1.75rem; }
+  .post-content img { background: #fff; border-radius: 0.5rem; max-width: 100%; height: auto; }
+  .post-content ul { list-style: disc; padding-left: 1.5rem; }
+  .post-content ol { list-style: decimal; padding-left: 1.5rem; }
+  .post-content pre {
+    padding: 1rem; border-radius: 0.5rem; overflow-x: auto;
+    border: 1px solid var(--color-border); font-size: 0.95rem;
+  }
+  .post-content :not(pre) > code {
+    font-size: 0.9em; padding: 0.1em 0.35em; border-radius: 0.3rem;
+    background: color-mix(in srgb, var(--color-muted) 18%, transparent);
+  }
+  .post-content table {
+    width: 100%; border-collapse: collapse; font-size: 0.95rem;
+    display: block; overflow-x: auto; border-radius: 0.6rem;
+  }
+  .post-content th, .post-content td { border: 0; padding: 0.6rem 0.9rem; text-align: left; }
+  .post-content thead th {
+    font-weight: 700;
+    background: color-mix(in srgb, var(--color-muted) 16%, transparent);
+  }
+  .post-content tbody tr:nth-child(odd) {
+    background: color-mix(in srgb, var(--color-muted) 7%, transparent);
+  }
+  .post-content blockquote {
+    border-left: 3px solid var(--color-accent); padding-left: 1rem;
+    color: var(--color-muted); font-style: italic;
+  }
+</style>

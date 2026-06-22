@@ -1,0 +1,153 @@
+---
+import ThemeMenu from "./ThemeMenu.astro";
+const path = Astro.url.pathname;
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/work", label: "Work" },
+  { href: "/blog", label: "Blog" },
+];
+function isActive(href: string) {
+  if (href === "/") return path === "/";
+  return path === href || path.startsWith(href + "/");
+}
+---
+<header class="sticky top-0 z-40" style="background: var(--color-bg)">
+  <nav class="container mx-auto max-w-3xl px-6 flex items-center justify-between py-4">
+    {/* Left cluster: page links (desktop) */}
+    <div class="hidden md:flex items-center gap-6">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class:list={["hover:opacity-100 transition-opacity", isActive(l.href) ? "font-bold opacity-100" : "opacity-80"]}
+          style="color: var(--color-text)"
+          aria-current={isActive(l.href) ? "page" : undefined}>
+          {l.label}
+        </a>
+      ))}
+    </div>
+
+    {/* Right cluster: search + theme (desktop), aligned together */}
+    <div class="hidden md:flex items-center gap-5">
+      <button type="button" data-search-open class="cursor-pointer opacity-80 hover:opacity-100 transition-opacity whitespace-nowrap" aria-label="Search">
+        <svg class="inline-block align-middle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5l4 4"></path></svg><span class="align-middle ml-1.5">Search</span>
+      </button>
+      <ThemeMenu />
+    </div>
+
+    {/* Mobile: animated hamburger, kept above the overlay so it doubles as the close (✕) control */}
+    <button type="button" class="hamburger md:hidden relative z-[100] ml-auto" data-menu-toggle aria-label="Menu" aria-expanded="false" style="color: var(--color-text)">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  {/* Full-screen mobile menu overlay */}
+  <div class="mobile-menu md:hidden" data-mobile-menu style="background: var(--color-bg)">
+    <nav class="flex flex-col items-center gap-7">
+      {links.map((l) => (
+        <a href={l.href} data-menu-link class="mobile-menu__item" style="color: var(--color-text)" aria-current={isActive(l.href) ? "page" : undefined}>{l.label}</a>
+      ))}
+      <button type="button" data-search-open data-menu-link class="mobile-menu__item cursor-pointer" style="color: var(--color-text)">Search</button>
+      <div class="mobile-menu__theme"><ThemeMenu /></div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Animated hamburger → ✕ */
+  .hamburger {
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .hamburger span {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 28px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+  .hamburger.is-open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburger.is-open span:nth-child(2) { opacity: 0; }
+  .hamburger.is-open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* Full-screen overlay */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.03);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  }
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+  .mobile-menu__item {
+    font-size: 1.9rem;
+    line-height: 1;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+  .mobile-menu__item:hover { opacity: 1; }
+  /* Bump the theme control so it sits comfortably with the big links */
+  /* Match the Theme control to the other mobile menu items */
+  .mobile-menu__theme { font-size: 1.9rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu, .hamburger span { transition: none; }
+  }
+</style>
+
+<script>
+  function init() {
+    const toggle = document.querySelector<HTMLElement>("[data-menu-toggle]");
+    const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+    if (!toggle || !menu) return;
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle("is-open", open);
+      toggle.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setOpen(!toggle.classList.contains("is-open"));
+    });
+
+    // Links + search close the menu; theme controls do NOT.
+    menu.querySelectorAll<HTMLElement>("[data-menu-link]").forEach((el) =>
+      el.addEventListener("click", () => setOpen(false)),
+    );
+
+    if (!(window as any).__mobileMenuEscBound) {
+      (window as any).__mobileMenuEscBound = true;
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        const t = document.querySelector<HTMLElement>("[data-menu-toggle].is-open");
+        const m = document.querySelector<HTMLElement>("[data-mobile-menu].is-open");
+        if (!t && !m) return;
+        m?.classList.remove("is-open");
+        t?.classList.remove("is-open");
+        t?.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      });
+    }
+  }
+  document.addEventListener("astro:page-load", init);
+</script>

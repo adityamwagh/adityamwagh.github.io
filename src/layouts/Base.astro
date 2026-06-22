@@ -1,0 +1,77 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import SearchOverlay from "../components/SearchOverlay.astro";
+import StructuredData from "../components/StructuredData.astro";
+
+const {
+  title,
+  description = "Aditya Wagh — Research Engineer working on world models and spatial intelligence for embodied AI.",
+  ogType = "website",
+  image = "/images/profile.webp",
+  datePublished,
+  dateModified,
+  keywords = [],
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <meta name="author" content="Aditya Wagh" />
+  <title>{title}</title>
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/png" href="/icons/icon.png" />
+  <link rel="alternate" type="application/rss+xml" title="Aditya Wagh" href="/feed.xml" />
+  <meta property="og:site_name" content="Aditya Wagh" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:site" content="@adityamwagh" />
+  <StructuredData
+    url={canonical}
+    title={title}
+    description={description}
+    image={ogImage}
+    ogType={ogType}
+    pathname={Astro.url.pathname}
+    datePublished={datePublished}
+    dateModified={dateModified}
+    keywords={keywords}
+  />
+  <ClientRouter />
+  <!-- No-flash theme: runs before paint -->
+  <script is:inline data-cfasync="false">
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-dvh flex flex-col">
+  <Nav />
+  <SearchOverlay />
+  <main class="flex-1 w-full container mx-auto max-w-3xl px-6">
+    <article class="fade-in-up py-12">
+      <slot />
+    </article>
+  </main>
+  <Footer />
+  <!-- Cloudflare Web Analytics -->
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "63d568ab4f0b4139bbb58eaff605d429"}'></script>
+</body>
+</html>

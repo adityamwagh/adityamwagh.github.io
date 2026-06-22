@@ -1,0 +1,145 @@
+---
+const {
+  url,
+  title,
+  description,
+  image,
+  ogType = "website",
+  pathname = "/",
+  datePublished,
+  dateModified,
+  keywords = [],
+} = Astro.props;
+
+const site = "https://adityamwagh.me";
+const siteName = "Aditya Wagh";
+const siteDesc =
+  "Aditya Wagh — Research Engineer working on world models and spatial intelligence for embodied AI.";
+
+// Stable, cross-page node identities (@id) that other nodes reference.
+const person = {
+  "@type": "Person",
+  "@id": `${site}/#person`,
+  name: siteName,
+  givenName: "Aditya",
+  familyName: "Wagh",
+  url: site,
+  image: `${site}/images/profile.webp`,
+  jobTitle: "Research Engineer",
+  knowsAbout: [
+    "Computer Vision",
+    "Robot Learning",
+    "World Models",
+    "Simultaneous Localization and Mapping",
+    "3D Perception",
+    "Machine Learning",
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/adityamwagh",
+    "https://github.com/adityamwagh",
+    "https://twitter.com/adityamwagh",
+  ],
+};
+
+const website = {
+  "@type": "WebSite",
+  "@id": `${site}/#website`,
+  url: site,
+  name: siteName,
+  description: siteDesc,
+  inLanguage: "en",
+  publisher: { "@id": `${site}/#person` },
+};
+
+const isHome = pathname === "/";
+const isBlogPost = ogType === "article";
+const isBlogIndex = pathname === "/blog" || pathname === "/blog/";
+const isWork = pathname === "/work" || pathname === "/work/";
+
+let pageNode: Record<string, unknown>;
+if (isBlogPost) {
+  pageNode = {
+    "@type": "BlogPosting",
+    "@id": `${url}#blogposting`,
+    url,
+    headline: title,
+    description,
+    image,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    inLanguage: "en",
+    author: { "@id": `${site}/#person` },
+    publisher: { "@id": `${site}/#person` },
+    isPartOf: { "@id": `${site}/#website` },
+    mainEntityOfPage: url,
+    ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
+  };
+} else if (isHome) {
+  pageNode = {
+    "@type": "ProfilePage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    isPartOf: { "@id": `${site}/#website` },
+    about: { "@id": `${site}/#person` },
+    mainEntity: { "@id": `${site}/#person` },
+    inLanguage: "en",
+  };
+} else if (isBlogIndex) {
+  pageNode = {
+    "@type": ["CollectionPage", "Blog"],
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${site}/#website` },
+    inLanguage: "en",
+  };
+} else if (isWork) {
+  pageNode = {
+    "@type": "CollectionPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${site}/#website` },
+    inLanguage: "en",
+  };
+} else {
+  pageNode = {
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${site}/#website` },
+    inLanguage: "en",
+  };
+}
+
+const graph: Record<string, unknown>[] = [website, person, pageNode];
+
+// BreadcrumbList on every non-home page.
+if (!isHome) {
+  const segments = pathname.replace(/^\/+|\/+$/g, "").split("/").filter(Boolean);
+  const crumbs = [{ name: "Home", path: "/" }];
+  let acc = "";
+  segments.forEach((seg) => {
+    acc += `/${seg}`;
+    crumbs.push({ name: seg, path: `${acc}/` });
+  });
+  graph.push({
+    "@type": "BreadcrumbList",
+    "@id": `${url}#breadcrumb`,
+    itemListElement: crumbs.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: i === 0 ? "Home" : i === crumbs.length - 1 ? title : c.name.charAt(0).toUpperCase() + c.name.slice(1),
+      item: new URL(c.path, site).href,
+    })),
+  });
+}
+
+const jsonLd = { "@context": "https://schema.org", "@graph": graph };
+---
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
