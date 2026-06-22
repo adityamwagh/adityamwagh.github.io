@@ -43,6 +43,11 @@
     (window as any).__searchBound = true;
 
     let pagefindUI: any = null;
+    // iOS Safari fires a synthesized "ghost" click ~300ms after a tap at the
+    // same coordinates. The tap that opens the overlay would otherwise land a
+    // ghost click on the backdrop and immediately close it. Ignore backdrop
+    // closes that happen within this window of opening.
+    let openedAt = 0;
 
     function createUI() {
       if (pagefindUI) return;
@@ -82,6 +87,7 @@
       overlay.hidden = false;
       overlay.classList.remove("hidden");
       overlay.classList.add("flex");
+      openedAt = Date.now();
       document.body.style.overflow = "hidden";
       // Replay the same entrance animation used on page navigation / tab switch.
       const panel = overlay.querySelector<HTMLElement>(".search-panel");
@@ -108,9 +114,10 @@
       const target = e.target as Element | null;
       if (target?.closest?.("[data-search-open]")) { open(); return; }
       if (target?.closest?.("[data-search-close]")) { close(); return; }
-      // A click on the backdrop itself (not the panel) closes the overlay.
+      // A click on the backdrop itself (not the panel) closes the overlay —
+      // unless it's the iOS ghost click from the tap that just opened it.
       const overlay = document.querySelector<HTMLElement>("[data-search-overlay]");
-      if (overlay && target === overlay) close();
+      if (overlay && target === overlay && Date.now() - openedAt > 400) close();
     });
 
     document.addEventListener("keydown", (e) => {

@@ -123,6 +123,10 @@ function isActive(href: string) {
     if ((window as any).__mobileMenuBound) return;
     (window as any).__mobileMenuBound = true;
 
+    // Swallow iOS Safari's synthesized ~300ms ghost click so a single tap can't
+    // toggle the hamburger twice (open then immediately closed).
+    let lastToggleAt = 0;
+
     const setOpen = (open: boolean) => {
       const toggle = document.querySelector<HTMLElement>("[data-menu-toggle]");
       const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
@@ -138,6 +142,8 @@ function isActive(href: string) {
       const toggle = target?.closest?.("[data-menu-toggle]");
       if (toggle) {
         e.stopPropagation();
+        if (Date.now() - lastToggleAt < 400) return;
+        lastToggleAt = Date.now();
         setOpen(!toggle.classList.contains("is-open"));
         return;
       }
