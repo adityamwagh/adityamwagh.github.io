@@ -164,29 +164,32 @@ const projects = [
 </style>
 
 <script>
-  function init() {
-    const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
-    if (!tabs.length) return;
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const target = tab.getAttribute("data-tab");
-        tabs.forEach((t) => {
-          const active = t === tab;
-          t.classList.toggle("is-active", active);
-          t.setAttribute("aria-selected", active ? "true" : "false");
-        });
-        document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
-          const show = panel.getAttribute("data-panel") === target;
-          panel.hidden = !show;
-          if (show) {
-            // Replay the same entrance animation used on page navigation.
-            panel.classList.remove("fade-in-up");
-            void panel.offsetWidth; // force reflow so the animation restarts
-            panel.classList.add("fade-in-up");
-          }
-        });
+  // Delegated on document + bound once, so tab switching works no matter how
+  // /work is reached (direct load or client-side View-Transition navigation).
+  function bindWorkTabs() {
+    if ((window as any).__workTabsBound) return;
+    (window as any).__workTabsBound = true;
+    document.addEventListener("click", (e) => {
+      const tab = (e.target as Element)?.closest?.(".work-tab");
+      if (!tab) return;
+      const target = tab.getAttribute("data-tab");
+      document.querySelectorAll<HTMLElement>(".work-tab").forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle("is-active", active);
+        t.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+        const show = panel.getAttribute("data-panel") === target;
+        panel.hidden = !show;
+        if (show) {
+          // Replay the same entrance animation used on page navigation.
+          panel.classList.remove("fade-in-up");
+          void panel.offsetWidth; // force reflow so the animation restarts
+          panel.classList.add("fade-in-up");
+        }
       });
     });
   }
-  document.addEventListener("astro:page-load", init);
+  bindWorkTabs();
+  document.addEventListener("astro:page-load", bindWorkTabs);
 </script>
