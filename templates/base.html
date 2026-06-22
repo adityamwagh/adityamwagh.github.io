@@ -82,6 +82,9 @@
 
   <!-- Page title -->
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+  <!-- JSON-LD structured data (schema.org) -->
+  {% include "partials/structured_data.html" %}
 </head>
 
 <body>
