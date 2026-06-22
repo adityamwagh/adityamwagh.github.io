@@ -1,0 +1,192 @@
+---
+import Base from "../layouts/Base.astro";
+import TechBadges from "../components/TechBadges.astro";
+
+const projects = [
+  {
+    title: "Neuracore",
+    video: "/images/neuracore.mp4",
+    poster: "/images/neuracore-poster.webp",
+    description: "Physical-AI infrastructure for robot learning — data capture, training, and deployment for embodied agents.",
+    href: "https://github.com/NeuracoreAI/neuracore",
+  },
+  {
+    title: "SuperSLAM",
+    image: "/images/room.webp",
+    description: "Open-source framework for deep-learning-based visual SLAM.",
+    href: "https://github.com/adityamwagh/SuperSLAM",
+  },
+  {
+    title: "Deep Image Matching using Local Feature Transformer",
+    image: "/images/loftr-arch.webp",
+    description: "Pose-estimation pipeline enabling 3D reconstruction using the Local Feature Transformer (LoFTR).",
+    href: "https://github.com/adityamwagh/DeepIM",
+  },
+  {
+    title: "State Estimation of a Drone by Visual-Inertial Sensor Fusion",
+    image: "/images/sensor-fusion.webp",
+    description: "Optimal state estimation using extended & unscented Kalman filters, implemented in MATLAB.",
+    href: "https://github.com/adityamwagh/state-estimation",
+  },
+  {
+    title: "Fast Plane Extraction from a 3D Point Cloud",
+    image: "/images/ransac-plane.webp",
+    description: "Fast, parallel implementation of the RANSAC algorithm to segment a plane in a point cloud.",
+    href: "https://github.com/adityamwagh/ransac-pcl",
+  },
+].map((p) => ({
+  ...p,
+  // owner/name slug for the client-side star fetch
+  repo: (p.href.match(/github\.com\/([^/]+\/[^/]+)/) || [])[1] || "",
+}));
+---
+<Base title="Work" description="Notable projects in robotics, 3D computer vision, and machine learning.">
+  <h1 class="mb-4">Work</h1>
+  <p class="mb-8">
+    A selection of open-source work across 3D computer vision, robotics, and machine learning — from visual SLAM and
+    deep image matching to LiDAR perception and state estimation.
+  </p>
+
+  <div class="work-tabs" role="tablist" aria-label="Work sections">
+    <button class="work-tab is-active" role="tab" data-tab="projects" aria-selected="true">Projects</button>
+    <button class="work-tab" role="tab" data-tab="toolbox" aria-selected="false">Toolbox</button>
+  </div>
+
+  <section data-panel="projects">
+    <ul class="project-list">
+      {projects.map((p) => (
+        <li class="py-6 flex flex-col sm:flex-row gap-4 sm:gap-5">
+          <div class="shrink-0">
+            {p.video ? (
+              <video
+                class="w-full sm:w-44 h-40 sm:h-28 object-cover rounded-lg bg-white"
+                autoplay loop muted playsinline preload="none" poster={p.poster}>
+                <source src={p.video} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                src={p.image} alt={p.title} loading="lazy" decoding="async"
+                class="w-full sm:w-44 h-40 sm:h-28 object-cover rounded-lg bg-white" />
+            )}
+          </div>
+          <div>
+            <h3 class="mb-1">{p.title}</h3>
+            <p style="color: var(--color-muted)">{p.description}</p>
+            <div class="flex items-center gap-4 mt-3 text-base">
+              <span class="star-badge inline-flex items-center gap-1" data-repo={p.repo} hidden style="color: var(--color-muted)">
+                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.168L12 18.896l-7.336 3.869 1.402-8.168L.132 9.21l8.2-1.192z" /></svg>
+                <span class="star-count"></span>
+              </span>
+              <a
+                href={p.href} target="_blank" rel="noopener"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 transition-colors hover:bg-[var(--color-border)]"
+                style="border-color: color-mix(in srgb, var(--color-border) 45%, transparent); color: var(--color-text)">
+                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                Code
+              </a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <script>
+    // Fetch GitHub star counts client-side, cached in localStorage for 24h
+    // (each browser hits the API at most once per day per repo).
+    function loadStars() {
+      const DAY = 86400000;
+      document.querySelectorAll<HTMLElement>(".star-badge[data-repo]").forEach(async (el) => {
+        const repo = el.getAttribute("data-repo");
+        if (!repo) return;
+        const key = "gh-stars:" + repo;
+        let count: number | null = null;
+        try {
+          const cached = JSON.parse(localStorage.getItem(key) || "null");
+          if (cached && Date.now() - cached.ts < DAY) count = cached.count;
+        } catch {}
+        if (count == null) {
+          try {
+            const res = await fetch(`https://api.github.com/repos/${repo}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            count = data.stargazers_count;
+            try { localStorage.setItem(key, JSON.stringify({ count, ts: Date.now() })); } catch {}
+          } catch { return; }
+        }
+        if (count == null) return;
+        const c = el.querySelector(".star-count");
+        if (c) c.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(count);
+        el.hidden = false;
+      });
+    }
+    document.addEventListener("astro:page-load", loadStars);
+  </script>
+
+  <section data-panel="toolbox" hidden>
+    <p class="mb-5" style="color: var(--color-muted)">
+      Languages, frameworks, and tools I've worked with across research and engineering.
+    </p>
+    <TechBadges />
+  </section>
+</Base>
+
+<style>
+  .work-tabs {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
+  }
+  .work-tab {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0.5rem 0.1rem;
+    font-size: 1.45rem;
+    font-weight: 700;
+    opacity: 0.55;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+  .work-tab:hover { opacity: 0.85; }
+  .work-tab.is-active {
+    opacity: 1;
+    border-bottom-color: var(--color-accent);
+  }
+  [data-panel] { padding-top: 1.5rem; }
+
+  /* Dividers between projects — same muted hairline as the tab underline. */
+  .project-list > li + li {
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
+  }
+</style>
+
+<script>
+  function init() {
+    const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
+    if (!tabs.length) return;
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-tab");
+        tabs.forEach((t) => {
+          const active = t === tab;
+          t.classList.toggle("is-active", active);
+          t.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+          const show = panel.getAttribute("data-panel") === target;
+          panel.hidden = !show;
+          if (show) {
+            // Replay the same entrance animation used on page navigation.
+            panel.classList.remove("fade-in-up");
+            void panel.offsetWidth; // force reflow so the animation restarts
+            panel.classList.add("fade-in-up");
+          }
+        });
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", init);
+</script>

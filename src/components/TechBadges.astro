@@ -1,0 +1,102 @@
+---
+import {
+  siPython, siCplusplus, siC, siRust, siTypescript, siGnubash, siJavascript, siHtml5, siCss,
+  siPytorch, siTensorflow, siKeras, siHuggingface, siScikitlearn, siNvidia, siOnnx,
+  siOpencv, siOpen3d, siNumpy, siScipy, siPandas,
+  siNextdotjs, siFastapi, siPydantic,
+  siCmake, siDocker, siLinux, siGooglecloud, siPytest, siGoogle,
+} from "simple-icons";
+
+// icon: a simple-icons object (has `.path`) or null → renders a neutral fallback glyph.
+// Render a simple-icon in its official brand color — but fall back to the
+// theme text color for near-black/near-white logos so they stay visible in
+// both light and dark modes.
+function brandColor(icon: { hex: string }): string {
+  const n = parseInt(icon.hex, 16);
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum < 40 || lum > 225 ? "currentColor" : `#${icon.hex}`;
+}
+
+const groups = [
+  {
+    name: "Languages",
+    items: [
+      { label: "Python", icon: siPython },
+      { label: "C++", icon: siCplusplus },
+      { label: "C", icon: siC },
+      { label: "Rust", icon: siRust },
+      { label: "TypeScript", icon: siTypescript },
+      { label: "Bash", icon: siGnubash },
+      { label: "MATLAB", icon: null, logo: "/images/matlab.svg" },
+      { label: "JavaScript", icon: siJavascript },
+      { label: "HTML", icon: siHtml5 },
+      { label: "CSS", icon: siCss },
+    ],
+  },
+  {
+    name: "Machine Learning",
+    items: [
+      { label: "PyTorch", icon: siPytorch },
+      { label: "JAX", icon: null, logo: "/images/jax.svg" },
+      { label: "TensorFlow", icon: siTensorflow },
+      { label: "Keras", icon: siKeras },
+      { label: "Hugging Face", icon: siHuggingface },
+      { label: "Scikit-learn", icon: siScikitlearn },
+      { label: "CUDA", icon: siNvidia },
+      { label: "ONNX", icon: siOnnx },
+      { label: "TensorRT", icon: siNvidia },
+    ],
+  },
+  {
+    name: "Vision, 3D & Scientific Computing",
+    items: [
+      { label: "OpenCV", icon: siOpencv },
+      { label: "Open3D", icon: siOpen3d },
+      { label: "Eigen", icon: null, logo: "/images/eigen.png" },
+      { label: "GTSAM", icon: null },
+      { label: "NumPy", icon: siNumpy },
+      { label: "SciPy", icon: siScipy },
+      { label: "Pandas", icon: siPandas },
+    ],
+  },
+  {
+    name: "Web & APIs",
+    items: [
+      { label: "Next.js", icon: siNextdotjs },
+      { label: "FastAPI", icon: siFastapi },
+      { label: "Pydantic", icon: siPydantic },
+    ],
+  },
+  {
+    name: "Systems, Tooling & Cloud",
+    items: [
+      { label: "CMake", icon: siCmake },
+      { label: "Docker", icon: siDocker },
+      { label: "Linux", icon: siLinux },
+      { label: "Google Cloud", icon: siGooglecloud },
+      { label: "GTest", icon: siGoogle },
+      { label: "pytest", icon: siPytest },
+    ],
+  },
+];
+---
+<div class="space-y-8">
+  {groups.map((g) => (
+    <div>
+      <h3 class="mb-3">{g.name}</h3>
+      <ul class="flex flex-wrap gap-x-7 gap-y-3">
+        {g.items.map((it) => (
+          <li class="inline-flex items-center gap-2.5">
+            {it.icon ? (
+              <svg class="shrink-0" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill={brandColor(it.icon)} aria-hidden="true"><path d={it.icon.path} /></svg>
+            ) : it.logo ? (
+              <img src={it.logo} alt={it.label} class="shrink-0 h-[1.2em] w-auto" loading="lazy" decoding="async" />
+            ) : null}
+            <span>{it.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
