@@ -1,0 +1,154 @@
+---
+const icons = {
+  system: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>',
+  light: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>',
+  dark: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+};
+const options = [
+  { mode: "system", label: "System" },
+  { mode: "light", label: "Light" },
+  { mode: "dark", label: "Dark" },
+];
+---
+<div class="theme-menu relative" data-theme-menu>
+  <button
+    class="theme-menu__button cursor-pointer hover:opacity-100 opacity-80 transition-opacity whitespace-nowrap"
+    type="button" data-theme-menu-button data-theme-mode="system"
+    aria-haspopup="true" aria-expanded="false" aria-label="Theme">
+    <span class="theme-menu__icon inline-flex align-middle" data-theme-icon set:html={icons.system} />
+    <span class="align-middle ml-1.5">Theme</span>
+    <svg class="inline-block align-middle ml-1" width="0.7em" height="0.7em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+  </button>
+  <ul
+    class="theme-menu__list absolute right-0 mt-2 min-w-[9rem] rounded-xl border py-1.5 z-50 shadow-md"
+    style="background: var(--color-bg); border-color: var(--color-border)"
+    role="menu" aria-label="Theme">
+    {options.map((o) => (
+      <li role="none">
+        <button
+          class="theme-menu__option flex items-center justify-center gap-2 w-full px-3 py-1.5 text-center text-base hover:opacity-100 opacity-80 cursor-pointer"
+          type="button" data-theme-option={o.mode} role="menuitemradio" aria-checked={o.mode === "system" ? "true" : "false"}>
+          <span class="inline-flex" set:html={icons[o.mode as keyof typeof icons]} />
+          <span>{o.label}</span>
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  const ICONS: Record<string, string> = {
+    system: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>',
+    light: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>',
+    dark: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+  };
+  const STORAGE_KEY = "theme";
+  const MODES = ["system", "light", "dark"];
+
+  function getStoredMode(): string {
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      return v && MODES.includes(v) ? v : "system";
+    } catch {
+      return "system";
+    }
+  }
+  function setStoredMode(mode: string) {
+    try {
+      if (mode === "system") localStorage.removeItem(STORAGE_KEY);
+      else localStorage.setItem(STORAGE_KEY, mode);
+    } catch {}
+  }
+  function applyMode(mode: string) {
+    if (mode === "light" || mode === "dark") document.documentElement.setAttribute("data-theme", mode);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+
+  function init() {
+    const menus = document.querySelectorAll<HTMLElement>("[data-theme-menu]");
+    if (!menus.length) return;
+
+    function closeAll() {
+      menus.forEach((menu) => {
+        const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
+        menu.querySelector(".theme-menu__list")?.classList.remove("is-open");
+        btn?.setAttribute("aria-expanded", "false");
+      });
+    }
+    function updateUI(mode: string) {
+      document.querySelectorAll<HTMLElement>("[data-theme-option]").forEach((opt) => {
+        opt.setAttribute("aria-checked", opt.getAttribute("data-theme-option") === mode ? "true" : "false");
+      });
+      menus.forEach((menu) => {
+        const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
+        if (btn) {
+          btn.setAttribute("data-theme-mode", mode);
+          const icon = btn.querySelector("[data-theme-icon]");
+          if (icon) icon.innerHTML = ICONS[mode];
+        }
+      });
+    }
+    function setMode(mode: string) {
+      setStoredMode(mode);
+      applyMode(mode);
+      updateUI(mode);
+    }
+
+    const current = getStoredMode();
+    applyMode(current);
+    updateUI(current);
+
+    menus.forEach((menu) => {
+      const btn = menu.querySelector<HTMLElement>("[data-theme-menu-button]");
+      const list = menu.querySelector<HTMLElement>(".theme-menu__list");
+      btn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willOpen = btn.getAttribute("aria-expanded") !== "true";
+        closeAll();
+        if (willOpen) {
+          list?.classList.add("is-open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+      menu.querySelectorAll<HTMLElement>("[data-theme-option]").forEach((opt) => {
+        opt.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setMode(opt.getAttribute("data-theme-option") || "system");
+          closeAll();
+        });
+      });
+    });
+
+    if (!(window as any).__themeMenuGlobalBound) {
+      (window as any).__themeMenuGlobalBound = true;
+      const closeAllLists = () => {
+        document.querySelectorAll(".theme-menu__list").forEach((l) => l.classList.remove("is-open"));
+        document.querySelectorAll("[data-theme-menu-button]").forEach((b) => b.setAttribute("aria-expanded", "false"));
+      };
+      document.addEventListener("click", closeAllLists);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeAllLists();
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", init);
+</script>
+
+<style>
+  .theme-menu__list {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-4px);
+    transform-origin: top right;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  }
+  .theme-menu__list.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-menu__list { transition: none; }
+  }
+</style>
