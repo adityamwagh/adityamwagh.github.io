@@ -1,17 +1,10 @@
 @import "tailwindcss";
 
 /* ---- Self-hosted fonts ---- */
+/* Montaga ships a single weight; bold (headings) and italic are synthesised. */
 @font-face {
-  font-family: "ET Bembo"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("/fonts/et-bembo-roman.woff2") format("woff2");
-}
-@font-face {
-  font-family: "ET Bembo"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("/fonts/et-bembo-bold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "ET Bembo"; font-style: italic; font-weight: 400; font-display: swap;
-  src: url("/fonts/et-bembo-italic.woff2") format("woff2");
+  font-family: "Montaga"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/montaga.woff2") format("woff2");
 }
 @font-face {
   font-family: "Iosevka"; font-style: normal; font-weight: 400; font-display: swap;
@@ -27,60 +20,69 @@
 }
 
 /* ---- Theme tokens ---- */
+/* Cool, slate-based palette with a blue accent (Nord-leaning — not warm). */
 :root {
-  --color-bg: #fffff8;
-  --color-text: #111110;
-  --color-muted: #6f6f6a;
-  --color-border: #e6e6df;
-  --color-accent: #8da101;        /* everforest green, light */
+  --color-bg: #fafbfd;
+  --color-text: #1c2530;
+  --color-muted: #5a6675;
+  --color-border: #e2e6ec;
+  --color-accent: #2660c4;        /* cool blue */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --color-bg: #1e2326;
-    --color-text: #d3c6aa;
-    --color-muted: #859289;
-    --color-border: #374247;
-    --color-accent: #a7c080;      /* everforest green, dark */
+    --color-bg: #1b1f27;
+    --color-text: #dfe4ec;
+    --color-muted: #8d99ab;
+    --color-border: #2f3742;
+    --color-accent: #7aa2f7;      /* cool periwinkle */
   }
 }
 [data-theme="light"] {
-  --color-bg: #fffff8; --color-text: #111110; --color-muted: #6f6f6a;
-  --color-border: #e6e6df; --color-accent: #8da101;
+  --color-bg: #fafbfd; --color-text: #1c2530; --color-muted: #5a6675;
+  --color-border: #e2e6ec; --color-accent: #2660c4;
 }
 [data-theme="dark"] {
-  --color-bg: #1e2326; --color-text: #d3c6aa; --color-muted: #859289;
-  --color-border: #374247; --color-accent: #a7c080;
+  --color-bg: #1b1f27; --color-text: #dfe4ec; --color-muted: #8d99ab;
+  --color-border: #2f3742; --color-accent: #7aa2f7;
 }
 
-/* ---- Base typography (Tufte-leaning) ---- */
-html {
-  background: var(--color-bg);
-  color: var(--color-text);
-  overflow-y: scroll; /* always show scrollbar so page width never shifts */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-body {
-  font-family: "ET Bembo", Georgia, serif;
-  font-size: 1.3rem; line-height: 1.72;
-  -webkit-font-smoothing: antialiased;
-}
+/* ---- Token-backed utilities (so markup uses classes, not inline styles) ---- */
+@utility text-fg { color: var(--color-text); }
+@utility text-muted { color: var(--color-muted); }
+@utility text-accent { color: var(--color-accent); }
+@utility bg-page { background-color: var(--color-bg); }
+@utility bg-accent { background-color: var(--color-accent); }
+@utility border-rule { border-color: var(--color-border); }
+@utility bg-rule { background-color: var(--color-border); }
+@utility border-faint { border-color: color-mix(in srgb, var(--color-border) 45%, transparent); }
+@utility bg-scrim { background-color: color-mix(in srgb, var(--color-bg) 70%, transparent); }
 
-/* ---- Type scale (single source of truth; Tailwind preflight unstyles headings) ---- */
-h1, h2, h3, h4 { font-weight: 700; }
-h1 { font-size: 2.5rem; line-height: 1.15; letter-spacing: -0.01em; }
-h2 { font-size: 2rem; line-height: 1.2; }
-h3 { font-size: 1.6rem; line-height: 1.28; }
-/* Semantic <h2> kept at h3 visual size, so card/list titles preserve a
-   sequential heading order (h1 → h2) without enlarging the design. */
-.title-md { font-size: 1.6rem; line-height: 1.28; }
-
-a { color: var(--color-accent); text-underline-offset: 2px; }
-/* Underline links inside running text so they're distinguishable without color
-   alone (WCAG 1.4.1 / Lighthouse link-in-text-block). Nav, buttons, icon and
-   card links live outside <p>/.post-content and stay underline-free. */
-p a, .post-content a { text-decoration: underline; text-decoration-thickness: 1px; }
-code, pre, kbd { font-family: "Iosevka", ui-monospace, monospace; }
-:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+/* ---- Base typography. In @layer base so component utility classes (text-xl,
+   font-semibold, …) override these without inline styles. ---- */
+@layer base {
+  html {
+    font-size: 20px; /* base: 1rem = 20px; the type scale below is rem-based */
+    background: var(--color-bg);
+    color: var(--color-text);
+    overflow-y: scroll; /* always show scrollbar so page width never shifts */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  body {
+    font-family: "Montaga", Georgia, serif;
+    font-size: 1rem; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Headings carry their size/weight via Tailwind text and font utilities in
+     the markup. Only rendered Markdown (.post-content, below) is sized in CSS,
+     since those tags cannot take classes. */
+  a { color: var(--color-accent); text-underline-offset: 2px; }
+  /* Underline links inside running text so they're distinguishable without
+     colour alone (WCAG 1.4.1). Nav/button/icon/card links sit outside
+     <p>/.post-content and stay underline-free. */
+  p a, .post-content a { text-decoration: underline; text-decoration-thickness: 1px; }
+  code, pre, kbd { font-family: "Iosevka", ui-monospace, monospace; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+}
 
 /* ---- Subtle entrance animation ---- */
 @keyframes fade-in-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

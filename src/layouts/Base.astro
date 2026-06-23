@@ -30,8 +30,7 @@ const ogImage = new URL(image, Astro.site).href;
   <link rel="icon" type="image/png" href="/icons/icon.png" />
   {/* Preload the body font (regular + bold) used above the fold so it arrives
       before first paint — cuts the LCP/CLS caused by ET Bembo swapping in late. */}
-  <link rel="preload" href="/fonts/et-bembo-roman.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/et-bembo-bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/montaga.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="alternate" type="application/rss+xml" title="Aditya Wagh" href="/feed.xml" />
   <meta property="og:site_name" content="Aditya Wagh" />
   <meta property="og:title" content={title} />

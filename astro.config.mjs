@@ -17,7 +17,7 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }),
     shikiConfig: {
-      themes: { light: "everforest-light", dark: "everforest-dark" },
+      themes: { light: "github-light", dark: "github-dark" },
       wrap: true,
     },
   },

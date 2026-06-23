@@ -3,12 +3,10 @@
 // They live at /pagefind/* and only exist after a production build (404 in dev — harmless).
 ---
 <div
-  class="search-overlay fixed inset-0 z-[100] hidden items-start justify-center p-4 sm:p-8"
-  style="background: color-mix(in srgb, var(--color-bg) 70%, transparent); backdrop-filter: blur(4px)"
+  class="search-overlay fixed inset-0 z-[100] hidden items-start justify-center p-4 sm:p-8 bg-scrim backdrop-blur-sm"
   data-search-overlay hidden>
   <div
-    class="search-panel w-full max-w-2xl mt-[10vh] rounded-lg border p-5 shadow-lg"
-    style="background: var(--color-bg); border-color: var(--color-border)"
+    class="search-panel w-full max-w-2xl mt-[10vh] rounded-lg border border-rule bg-page p-5 shadow-lg"
     role="dialog" aria-modal="true" aria-labelledby="search-title">
     <div class="flex items-center justify-between mb-3">
       <h2 id="search-title">Search</h2>

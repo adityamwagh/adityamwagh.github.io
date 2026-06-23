@@ -24,15 +24,15 @@ const socials = [
 ];
 ---
 <footer class="mt-20 mb-10">
-  <div class="container mx-auto max-w-3xl px-6 text-center" style="color: var(--color-muted)">
+  <div class="container mx-auto max-w-3xl px-6 text-center text-muted">
     <div class="flex justify-center gap-6 mb-4">
       {socials.map((s) => (
-        <a href={s.href} aria-label={s.label} class="opacity-70 hover:opacity-100 transition-opacity" style="color: var(--color-text)">
+        <a href={s.href} aria-label={s.label} class="text-fg opacity-70 hover:opacity-100 transition-opacity">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d={s.path}></path></svg>
         </a>
       ))}
     </div>
-    <p class="text-[1.05rem]">&copy; {year} Aditya Wagh</p>
+    <p class="text-base">&copy; {year} Aditya Wagh</p>
     <p class="text-base mt-1">
       Built with <a href="https://astro.build">Astro</a> · <a href="/feed.xml">RSS</a>
     </p>

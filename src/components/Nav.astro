@@ -11,15 +11,14 @@ function isActive(href: string) {
   return path === href || path.startsWith(href + "/");
 }
 ---
-<header class="sticky top-0 z-40" style="background: var(--color-bg)">
+<header class="sticky top-0 z-40 bg-page">
   <nav class="container mx-auto max-w-3xl px-6 flex items-center justify-between py-4">
     {/* Left cluster: page links (desktop) */}
-    <div class="hidden md:flex items-center gap-6">
+    <div class="hidden md:flex items-center gap-6 text-lg">
       {links.map((l) => (
         <a
           href={l.href}
-          class:list={["hover:opacity-100 transition-opacity", isActive(l.href) ? "font-bold opacity-100" : "opacity-80"]}
-          style="color: var(--color-text)"
+          class:list={["text-fg hover:opacity-100 transition-opacity", isActive(l.href) ? "font-bold opacity-100" : "opacity-80"]}
           aria-current={isActive(l.href) ? "page" : undefined}>
           {l.label}
         </a>
@@ -27,7 +26,7 @@ function isActive(href: string) {
     </div>
 
     {/* Right cluster: search + theme (desktop), aligned together */}
-    <div class="hidden md:flex items-center gap-5">
+    <div class="hidden md:flex items-center gap-5 text-lg">
       <button type="button" data-search-open class="cursor-pointer opacity-80 hover:opacity-100 transition-opacity whitespace-nowrap" aria-label="Search">
         <svg class="inline-block align-middle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5l4 4"></path></svg><span class="align-middle ml-1.5">Search</span>
       </button>
@@ -35,19 +34,19 @@ function isActive(href: string) {
     </div>
 
     {/* Mobile: animated hamburger, kept above the overlay so it doubles as the close (✕) control */}
-    <button type="button" class="hamburger md:hidden relative z-[100] ml-auto" data-menu-toggle aria-label="Menu" aria-expanded="false" style="color: var(--color-text)">
+    <button type="button" class="hamburger md:hidden relative z-[100] ml-auto text-fg" data-menu-toggle aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   {/* Full-screen mobile menu overlay */}
-  <div class="mobile-menu md:hidden" data-mobile-menu style="background: var(--color-bg)">
+  <div class="mobile-menu md:hidden bg-page" data-mobile-menu>
     <nav class="flex flex-col items-center gap-7">
       {links.map((l) => (
-        <a href={l.href} data-menu-link class="mobile-menu__item" style="color: var(--color-text)" aria-current={isActive(l.href) ? "page" : undefined}>{l.label}</a>
+        <a href={l.href} data-menu-link class="mobile-menu__item text-3xl text-fg" aria-current={isActive(l.href) ? "page" : undefined}>{l.label}</a>
       ))}
-      <button type="button" data-search-open data-menu-link class="mobile-menu__item cursor-pointer" style="color: var(--color-text)">Search</button>
-      <div class="mobile-menu__theme"><ThemeMenu /></div>
+      <button type="button" data-search-open data-menu-link class="mobile-menu__item text-3xl text-fg cursor-pointer">Search</button>
+      <div class="mobile-menu__theme text-3xl"><ThemeMenu /></div>
     </nav>
   </div>
 </header>
@@ -96,16 +95,13 @@ function isActive(href: string) {
     visibility: visible;
     transform: scale(1);
   }
+  /* Size comes from the text-3xl utility on each item; only behaviour here. */
   .mobile-menu__item {
-    font-size: 1.9rem;
     line-height: 1;
     opacity: 0.85;
     transition: opacity 0.2s ease;
   }
   .mobile-menu__item:hover { opacity: 1; }
-  /* Bump the theme control so it sits comfortably with the big links */
-  /* Match the Theme control to the other mobile menu items */
-  .mobile-menu__theme { font-size: 1.9rem; }
 
   @media (prefers-reduced-motion: reduce) {
     .mobile-menu, .hamburger span { transition: none; }

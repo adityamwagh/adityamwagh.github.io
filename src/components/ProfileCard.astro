@@ -28,7 +28,7 @@ const socials = [
     class="w-[220px] h-[220px] md:w-[300px] md:h-[300px] rounded-full object-cover mx-auto" />
   <div class="flex justify-center gap-3 mt-4">
     {socials.map((s) => (
-      <a href={s.href} aria-label={s.label} class="opacity-70 hover:opacity-100 transition-opacity" style="color: var(--color-text)">
+      <a href={s.href} aria-label={s.label} class="text-fg opacity-70 hover:opacity-100 transition-opacity">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d={s.path}></path></svg>
       </a>
     ))}
