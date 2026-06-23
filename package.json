@@ -2,6 +2,7 @@
   "name": "adityamwagh-site",
   "type": "module",
   "version": "1.0.0",
+  "packageManager": "bun@1.2.15",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
