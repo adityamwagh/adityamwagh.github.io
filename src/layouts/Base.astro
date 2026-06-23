@@ -74,6 +74,69 @@ const ogImage = new URL(image, Astro.site).href;
     </article>
   </main>
   <Footer />
+  <script>
+    // Work-page behaviour lives here (not in work.astro) so it loads on every
+    // page. Astro's ClientRouter does not execute a destination page's own
+    // inline script on client-side navigation, so a /work-only script never
+    // bound when /work was reached via nav. Bound once on document here, it
+    // works no matter how /work is reached.
+    function bindWorkTabs() {
+      if ((window as any).__workTabsBound) return;
+      (window as any).__workTabsBound = true;
+      document.addEventListener("click", (e) => {
+        const tab = (e.target as Element)?.closest?.(".work-tab");
+        if (!tab) return;
+        const target = tab.getAttribute("data-tab");
+        document.querySelectorAll<HTMLElement>(".work-tab").forEach((t) => {
+          const active = t === tab;
+          t.classList.toggle("is-active", active);
+          t.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+          const show = panel.getAttribute("data-panel") === target;
+          panel.hidden = !show;
+          if (show) {
+            panel.classList.remove("fade-in-up");
+            void panel.offsetWidth; // force reflow so the animation restarts
+            panel.classList.add("fade-in-up");
+          }
+        });
+      });
+    }
+
+    // GitHub star counts, cached per repo in localStorage for 24h. Runs on each
+    // page load; no-ops on pages without star badges.
+    function loadStars() {
+      const DAY = 86400000;
+      document.querySelectorAll<HTMLElement>(".star-badge[data-repo]").forEach(async (el) => {
+        const repo = el.getAttribute("data-repo");
+        if (!repo) return;
+        const key = "gh-stars:" + repo;
+        let count: number | null = null;
+        try {
+          const cached = JSON.parse(localStorage.getItem(key) || "null");
+          if (cached && Date.now() - cached.ts < DAY) count = cached.count;
+        } catch {}
+        if (count == null) {
+          try {
+            const res = await fetch(`https://api.github.com/repos/${repo}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            count = data.stargazers_count;
+            try { localStorage.setItem(key, JSON.stringify({ count, ts: Date.now() })); } catch {}
+          } catch { return; }
+        }
+        if (count == null) return;
+        const c = el.querySelector(".star-count");
+        if (c) c.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(count);
+        el.hidden = false;
+      });
+    }
+
+    bindWorkTabs();
+    loadStars();
+    document.addEventListener("astro:page-load", () => { bindWorkTabs(); loadStars(); });
+  </script>
   <!-- Cloudflare Web Analytics -->
   <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "63d568ab4f0b4139bbb58eaff605d429"}'></script>
 </body>

@@ -90,38 +90,6 @@ const projects = [
     </ul>
   </section>
 
-  <script>
-    // Fetch GitHub star counts client-side, cached in localStorage for 24h
-    // (each browser hits the API at most once per day per repo).
-    function loadStars() {
-      const DAY = 86400000;
-      document.querySelectorAll<HTMLElement>(".star-badge[data-repo]").forEach(async (el) => {
-        const repo = el.getAttribute("data-repo");
-        if (!repo) return;
-        const key = "gh-stars:" + repo;
-        let count: number | null = null;
-        try {
-          const cached = JSON.parse(localStorage.getItem(key) || "null");
-          if (cached && Date.now() - cached.ts < DAY) count = cached.count;
-        } catch {}
-        if (count == null) {
-          try {
-            const res = await fetch(`https://api.github.com/repos/${repo}`);
-            if (!res.ok) return;
-            const data = await res.json();
-            count = data.stargazers_count;
-            try { localStorage.setItem(key, JSON.stringify({ count, ts: Date.now() })); } catch {}
-          } catch { return; }
-        }
-        if (count == null) return;
-        const c = el.querySelector(".star-count");
-        if (c) c.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(count);
-        el.hidden = false;
-      });
-    }
-    document.addEventListener("astro:page-load", loadStars);
-  </script>
-
   <section data-panel="toolbox" hidden>
     <p class="mb-5 text-muted">
       Languages, frameworks, and tools I've worked with across research and engineering.
@@ -161,34 +129,3 @@ const projects = [
     border-top: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
   }
 </style>
-
-<script>
-  // Delegated on document + bound once, so tab switching works no matter how
-  // /work is reached (direct load or client-side View-Transition navigation).
-  function bindWorkTabs() {
-    if ((window as any).__workTabsBound) return;
-    (window as any).__workTabsBound = true;
-    document.addEventListener("click", (e) => {
-      const tab = (e.target as Element)?.closest?.(".work-tab");
-      if (!tab) return;
-      const target = tab.getAttribute("data-tab");
-      document.querySelectorAll<HTMLElement>(".work-tab").forEach((t) => {
-        const active = t === tab;
-        t.classList.toggle("is-active", active);
-        t.setAttribute("aria-selected", active ? "true" : "false");
-      });
-      document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
-        const show = panel.getAttribute("data-panel") === target;
-        panel.hidden = !show;
-        if (show) {
-          // Replay the same entrance animation used on page navigation.
-          panel.classList.remove("fade-in-up");
-          void panel.offsetWidth; // force reflow so the animation restarts
-          panel.classList.add("fade-in-up");
-        }
-      });
-    });
-  }
-  bindWorkTabs();
-  document.addEventListener("astro:page-load", bindWorkTabs);
-</script>
