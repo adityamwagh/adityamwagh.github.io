@@ -1,8 +1,0 @@
-{
-  // Static deploy: serve the prebuilt Astro output in ./dist as Workers Static
-  // Assets. No `main` worker + no SSR adapter — this is a static site, so this
-  // config stops `wrangler deploy` from auto-running `astro add cloudflare`.
-  "name": "website",
-  "compatibility_date": "2026-06-23",
-  "assets": { "directory": "./dist" }
-}
