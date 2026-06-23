@@ -8,6 +8,10 @@ import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
   site: "https://adityamwagh.me",
+  // Cloudflare Pages serves directory URLs and 308-redirects non-slash paths.
+  // Match that so internal links never hit a redirect (which breaks ClientRouter
+  // script execution on client-side navigation).
+  trailingSlash: "always",
   integrations: [mdx(), sitemap()],
   vite: { plugins: [tailwindcss()] },
   markdown: {

@@ -3,12 +3,13 @@ import ThemeMenu from "./ThemeMenu.astro";
 const path = Astro.url.pathname;
 const links = [
   { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/blog", label: "Blog" },
+  { href: "/work/", label: "Work" },
+  { href: "/blog/", label: "Blog" },
 ];
 function isActive(href: string) {
-  if (href === "/") return path === "/";
-  return path === href || path.startsWith(href + "/");
+  const base = href.replace(/\/$/, ""); // "/work/" -> "/work", "/" -> ""
+  if (base === "") return path === "/";
+  return path === base || path.startsWith(base + "/");
 }
 ---
 <header class="sticky top-0 z-40 bg-page">
