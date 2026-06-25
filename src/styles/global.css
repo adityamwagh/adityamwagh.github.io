@@ -28,13 +28,15 @@
   --color-border: #e2e6ec;
   --color-accent: #2660c4;        /* cool blue */
 }
+/* Dark = GitHub's "github-dark-default" palette, matching the code-block theme
+   set in astro.config.mjs so the UI and code share one look. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --color-bg: #1b1f27;
-    --color-text: #dfe4ec;
-    --color-muted: #8d99ab;
-    --color-border: #2f3742;
-    --color-accent: #7aa2f7;      /* cool periwinkle */
+    --color-bg: #0d1117;          /* canvas.default */
+    --color-text: #e6edf3;        /* fg.default */
+    --color-muted: #8b949e;       /* fg.muted */
+    --color-border: #30363d;      /* border.default */
+    --color-accent: #4493f8;      /* accent.fg (link blue) */
   }
 }
 [data-theme="light"] {
@@ -42,11 +44,14 @@
   --color-border: #e2e6ec; --color-accent: #2660c4;
 }
 [data-theme="dark"] {
-  --color-bg: #1b1f27; --color-text: #dfe4ec; --color-muted: #8d99ab;
-  --color-border: #2f3742; --color-accent: #7aa2f7;
+  --color-bg: #0d1117; --color-text: #e6edf3; --color-muted: #8b949e;
+  --color-border: #30363d; --color-accent: #4493f8;
 }
 
-/* ---- Token-backed utilities (so markup uses classes, not inline styles) ---- */
+/* ---- Token-backed utilities (so markup uses classes, not inline styles) ----
+   No standing transition here: a persistent transition on themed elements also
+   fires during ClientRouter page swaps, flashing the header. The cross-fade is
+   instead enabled only while the user toggles, via `.theme-transition` below. */
 @utility text-fg { color: var(--color-text); }
 @utility text-muted { color: var(--color-muted); }
 @utility text-accent { color: var(--color-accent); }
@@ -61,11 +66,10 @@
    font-semibold, …) override these without inline styles. ---- */
 @layer base {
   html {
-    font-size: 20px; /* base: 1rem = 20px; the type scale below is rem-based */
+    font-size: 18px; /* base: 1rem = 18px; the type scale below is rem-based */
     background: var(--color-bg);
     color: var(--color-text);
     overflow-y: scroll; /* always show scrollbar so page width never shifts */
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
   body {
     font-family: "Montaga", Georgia, serif;
@@ -88,6 +92,22 @@
 @keyframes fade-in-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .fade-in-up { animation: fade-in-up 0.5s ease both; }
 @media (prefers-reduced-motion: reduce) { .fade-in-up { animation: none; } }
+
+/* ---- Theme cross-fade, only while toggling ----
+   ThemeMenu adds `.theme-transition` to <html> for ~300ms when the user picks a
+   mode, so every themed surface (header, body, borders, code) fades together in
+   lockstep — no element snaps ahead (no toggle flicker). It is absent during
+   navigation, so page swaps never animate the header (no nav flash). */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition, html.theme-transition *,
+  html.theme-transition *::before, html.theme-transition *::after { transition: none !important; }
+}
 
 /* ---- Shiki dual-theme: activate dark colors under dark theme ---- */
 [data-theme="dark"] .astro-code,

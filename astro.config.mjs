@@ -8,6 +8,10 @@ import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
   site: "https://adityamwagh.me",
+  // Astro 7 changed compressHTML's default to 'jsx', which strips whitespace
+  // between inline elements across source newlines — collapsed the space before
+  // inline <a> links (e.g. "founded by<a>"). `true` keeps the old behaviour.
+  compressHTML: true,
   // Cloudflare Pages serves directory URLs and 308-redirects non-slash paths.
   // Match that so internal links never hit a redirect (which breaks ClientRouter
   // script execution on client-side navigation).
@@ -21,7 +25,7 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }),
     shikiConfig: {
-      themes: { light: "github-light", dark: "github-dark" },
+      themes: { light: "github-light", dark: "github-dark-default" },
       wrap: true,
     },
   },

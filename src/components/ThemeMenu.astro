@@ -1,33 +1,24 @@
 ---
-const icons = {
-  system: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>',
-  light: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>',
-  dark: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
-};
-const options = [
-  { mode: "system", label: "System" },
-  { mode: "light", label: "Light" },
-  { mode: "dark", label: "Dark" },
-];
+import { themeIcons, themeOptions } from "../data/theme-icons";
 ---
 <div class="theme-menu relative" data-theme-menu>
   <button
     class="theme-menu__button cursor-pointer hover:opacity-100 opacity-80 transition-opacity whitespace-nowrap"
     type="button" data-theme-menu-button data-theme-mode="system"
     aria-haspopup="true" aria-expanded="false" aria-label="Theme">
-    <span class="theme-menu__icon inline-flex align-middle" data-theme-icon set:html={icons.system} />
+    <span class="theme-menu__icon inline-flex align-middle" data-theme-icon set:html={themeIcons.system} />
     <span class="align-middle ml-1.5">Theme</span>
     <svg class="inline-block align-middle ml-1" width="0.7em" height="0.7em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
   </button>
   <ul
     class="theme-menu__list absolute right-0 mt-2 min-w-[9rem] rounded-xl border border-rule bg-page py-1.5 z-50 shadow-md"
     role="menu" aria-label="Theme">
-    {options.map((o) => (
+    {themeOptions.map((o) => (
       <li role="none">
         <button
           class="theme-menu__option flex items-center justify-center gap-2 w-full px-3 py-1.5 text-center text-base hover:opacity-100 opacity-80 cursor-pointer"
           type="button" data-theme-option={o.mode} role="menuitemradio" aria-checked={o.mode === "system" ? "true" : "false"}>
-          <span class="inline-flex" set:html={icons[o.mode as keyof typeof icons]} />
+          <span class="inline-flex" set:html={themeIcons[o.mode]} />
           <span>{o.label}</span>
         </button>
       </li>
@@ -36,11 +27,7 @@ const options = [
 </div>
 
 <script>
-  const ICONS: Record<string, string> = {
-    system: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>',
-    light: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M4.5 12H2.5M21.5 12h-2M5.6 5.6l-1.4-1.4M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4"></path></svg>',
-    dark: '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
-  };
+  import { themeIcons } from "../data/theme-icons";
   const STORAGE_KEY = "theme";
   const MODES = ["system", "light", "dark"];
 
@@ -74,10 +61,21 @@ const options = [
     document.querySelectorAll<HTMLElement>("[data-theme-menu-button]").forEach((btn) => {
       btn.setAttribute("data-theme-mode", mode);
       const icon = btn.querySelector("[data-theme-icon]");
-      if (icon) icon.innerHTML = ICONS[mode];
+      if (icon) icon.innerHTML = themeIcons[mode as keyof typeof themeIcons];
     });
   }
+  // Enable the colour cross-fade only for a user toggle. Adding the class to
+  // <html> turns on transitions for ~320ms so header + body + borders fade in
+  // lockstep (no flicker), then removes it so navigation never animates colours.
+  let themeFadeTimer: number | undefined;
+  function flashThemeFade() {
+    const el = document.documentElement;
+    el.classList.add("theme-transition");
+    if (themeFadeTimer) clearTimeout(themeFadeTimer);
+    themeFadeTimer = window.setTimeout(() => el.classList.remove("theme-transition"), 320);
+  }
   function setMode(mode: string) {
+    flashThemeFade();
     setStoredMode(mode);
     applyMode(mode);
     updateUI(mode);
