@@ -28,8 +28,8 @@ is set via `public/CNAME`.
 
 ## Structure
 
-- `src/pages/` — routes (home, work, blog, 404, RSS)
-- `src/layouts/Base.astro` — shared `<head>`, nav, footer, theme + view transitions
-- `src/components/` — Nav, ThemeMenu, SearchOverlay, ProfileCard, ProjectCard, etc.
-- `src/content/blog/` — blog posts (Markdown)
-- `public/` — static assets (fonts, images, icons, CNAME)
+- `src/pages/`: routes (home, work, blog, 404, RSS)
+- `src/layouts/Base.astro`: shared `<head>`, nav, footer, theme + view transitions
+- `src/components/`: Nav, ThemeMenu, SearchOverlay, ProfileCard, ProjectCard, etc.
+- `src/content/blog/`: blog posts (Markdown)
+- `public/`: static assets (fonts, images, icons, CNAME)
