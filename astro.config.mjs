@@ -9,7 +9,7 @@ import rehypeKatex from "rehype-katex";
 export default defineConfig({
   site: "https://adityamwagh.me",
   // Astro 7 changed compressHTML's default to 'jsx', which strips whitespace
-  // between inline elements across source newlines — collapsed the space before
+  // between inline elements across source newlines, collapsing the space before
   // inline <a> links (e.g. "founded by<a>"). `true` keeps the old behaviour.
   compressHTML: true,
   // Cloudflare Pages serves directory URLs and 308-redirects non-slash paths.
@@ -19,7 +19,8 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
   vite: { plugins: [tailwindcss()] },
   markdown: {
-    // Astro 6.4+: remark/rehype plugins go through `processor`; shikiConfig stays top-level.
+    // Sätteri (Astro 7 default) only tags math as `language-math` and never
+    // renders it, and it does not run rehype plugins. KaTeX needs unified().
     processor: unified({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex],
