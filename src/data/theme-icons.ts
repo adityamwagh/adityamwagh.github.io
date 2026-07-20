@@ -1,5 +1,5 @@
 // Theme-mode icons, shared between ThemeMenu.astro's markup (frontmatter) and
-// its client script — previously duplicated as two identical objects.
+// its client script, previously duplicated as two identical objects.
 export type ThemeMode = "system" | "light" | "dark";
 
 export const themeIcons: Record<ThemeMode, string> = {

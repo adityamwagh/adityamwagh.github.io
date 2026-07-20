@@ -8,7 +8,7 @@ import StructuredData from "../components/StructuredData.astro";
 
 const {
   title,
-  description = "Aditya Wagh — Research Engineer working on world models and spatial intelligence for embodied AI.",
+  description = "Aditya Wagh: Member of Technical Staff at Neuracore, building backend and infrastructure for robot learning.",
   ogType = "website",
   image = "/images/profile.webp",
   datePublished,
@@ -28,8 +28,8 @@ const ogImage = new URL(image, Astro.site).href;
   <title>{title}</title>
   <link rel="canonical" href={canonical} />
   <link rel="icon" type="image/png" href="/icons/icon.png" />
-  {/* Preload the body font (regular + bold) used above the fold so it arrives
-      before first paint — cuts the LCP/CLS caused by ET Bembo swapping in late. */}
+  {/* Preload the body font used above the fold so it arrives before first
+      paint, cutting the LCP/CLS caused by Montaga swapping in late. */}
   <link rel="preload" href="/fonts/montaga.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="alternate" type="application/rss+xml" title="Aditya Wagh" href="/feed.xml" />
   <meta property="og:site_name" content="Aditya Wagh" />
@@ -68,44 +68,18 @@ const ogImage = new URL(image, Astro.site).href;
 <body class="min-h-dvh flex flex-col">
   <Nav />
   <SearchOverlay />
-  <main class="flex-1 w-full container mx-auto max-w-3xl px-6">
+  <main class="flex-1 w-full column md:border-x border-rule">
     <article class="fade-in-up py-12">
       <slot />
     </article>
   </main>
   <Footer />
   <script>
-    // Work-page behaviour lives here (not in work.astro) so it loads on every
-    // page. Astro's ClientRouter does not execute a destination page's own
-    // inline script on client-side navigation, so a /work-only script never
-    // bound when /work was reached via nav. Bound once on document here, it
-    // works no matter how /work is reached.
-    function bindWorkTabs() {
-      if ((window as any).__workTabsBound) return;
-      (window as any).__workTabsBound = true;
-      document.addEventListener("click", (e) => {
-        const tab = (e.target as Element)?.closest?.(".work-tab");
-        if (!tab) return;
-        const target = tab.getAttribute("data-tab");
-        document.querySelectorAll<HTMLElement>(".work-tab").forEach((t) => {
-          const active = t === tab;
-          t.classList.toggle("is-active", active);
-          t.setAttribute("aria-selected", active ? "true" : "false");
-        });
-        document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
-          const show = panel.getAttribute("data-panel") === target;
-          panel.hidden = !show;
-          if (show) {
-            panel.classList.remove("fade-in-up");
-            void panel.offsetWidth; // force reflow so the animation restarts
-            panel.classList.add("fade-in-up");
-          }
-        });
-      });
-    }
-
-    // GitHub star counts, cached per repo in localStorage for 24h. Runs on each
-    // page load; no-ops on pages without star badges.
+    // GitHub star counts, cached per repo in localStorage for 24h. Lives in the
+    // layout rather than work.astro because ClientRouter does not execute a
+    // destination page's own inline script on client-side navigation, so a
+    // /work-only script would never bind when /work is reached via nav.
+    // No-ops on pages without star badges.
     function loadStars() {
       const DAY = 86400000;
       document.querySelectorAll<HTMLElement>(".star-badge[data-repo]").forEach(async (el) => {
@@ -133,9 +107,8 @@ const ogImage = new URL(image, Astro.site).href;
       });
     }
 
-    bindWorkTabs();
     loadStars();
-    document.addEventListener("astro:page-load", () => { bindWorkTabs(); loadStars(); });
+    document.addEventListener("astro:page-load", loadStars);
   </script>
   <!-- Cloudflare Web Analytics -->
   <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "63d568ab4f0b4139bbb58eaff605d429"}'></script>

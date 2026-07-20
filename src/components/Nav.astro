@@ -13,7 +13,7 @@ function isActive(href: string) {
 }
 ---
 <header class="sticky top-0 z-40 bg-page">
-  <nav class="container mx-auto max-w-3xl px-6 flex items-center justify-between py-4">
+  <nav class="column flex items-center justify-between py-4 md:border-x border-b border-rule">
     {/* Left cluster: page links (desktop) */}
     <div class="hidden md:flex items-center gap-6 text-lg">
       {links.map((l) => (
@@ -41,7 +41,7 @@ function isActive(href: string) {
   </nav>
 
   {/* Full-screen mobile menu overlay */}
-  <div class="mobile-menu md:hidden bg-page" data-mobile-menu>
+  <div class="mobile-menu md:hidden bg-page fixed inset-0 z-90 flex items-center justify-center" data-mobile-menu>
     <nav class="flex flex-col items-center gap-7">
       {links.map((l) => (
         <a href={l.href} data-menu-link class="mobile-menu__item text-3xl text-fg" aria-current={isActive(l.href) ? "page" : undefined}>{l.label}</a>
@@ -68,7 +68,6 @@ function isActive(href: string) {
     height: 2px;
     width: 28px;
     background: currentColor;
-    border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.2s ease;
   }
   .hamburger span:nth-child(1) { top: 0; }
@@ -78,14 +77,9 @@ function isActive(href: string) {
   .hamburger.is-open span:nth-child(2) { opacity: 0; }
   .hamburger.is-open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-  /* Full-screen overlay */
+  /* Full-screen overlay. Layout comes from utilities on the element; only the
+     JS-toggled open/close animation lives here. */
   .mobile-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 90;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     opacity: 0;
     visibility: hidden;
     transform: scale(1.03);
@@ -114,7 +108,7 @@ function isActive(href: string) {
   // matter how the page is reached. Astro's View-Transition router re-runs
   // inline component scripts on client navigation; binding per-element inside
   // `astro:page-load` (the old approach) stacked a fresh click listener each
-  // navigation, and an even number of them cancelled out — the tap opened then
+  // navigation, and an even number of them cancelled out: the tap opened then
   // immediately closed the menu, reading as "the hamburger doesn't work".
   function bindMobileMenu() {
     if ((window as any).__mobileMenuBound) return;
