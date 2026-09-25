@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
 /* ---- Self-hosted fonts ---- */
-/* Montaga ships a single weight; bold (headings) and italic are synthesised. */
+/* Inter is a variable font: one file covers the 100 to 900 weight axis. */
 @font-face {
-  font-family: "Montaga"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("/fonts/montaga.woff2") format("woff2");
+  font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: italic; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/inter-variable-italic.woff2") format("woff2");
 }
 /* Source Code Pro is a variable font: one file covers the 400 to 700 weight axis. */
 @font-face {
@@ -105,7 +109,7 @@
     overflow-y: scroll; /* always show scrollbar so page width never shifts */
   }
   body {
-    font-family: "Montaga", Georgia, serif;
+    font-family: "Inter", Helvetica, Arial, sans-serif;
     font-size: 1rem; line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
