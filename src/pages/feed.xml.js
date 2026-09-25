@@ -6,7 +6,7 @@ export async function GET(context) {
   return rss({
     title: "Aditya Wagh",
     description:
-      "Aditya Wagh: Member of Technical Staff at Neuracore, building backend and infrastructure for robot learning.",
+      "Aditya Wagh: research engineer based in London, specialising in AI and robotics.",
     site: context.site,
     items: posts
       .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
